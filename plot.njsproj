@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>NodejsConsoleApp1</Name>
+    <RootNamespace>NodejsConsoleApp1</RootNamespace>
+    <NodejsPort>30901</NodejsPort>
+    <UseIISExpress>true</UseIISExpress>
+    <DebuggerPort>8081</DebuggerPort>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>c1b8e80e-9d03-431e-a022-4d088fe19b83</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>sample\app.js</StartupFile>
+    <StartWebBrowser>True</StartWebBrowser>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <ProjectView>ShowAllFiles</ProjectView>
+    <StartWebBrowser>True</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include="build\plot.css" />
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+    <Content Include="sample\package.json" />
+    <Content Include="sample\static\assets\pencil.png" />
+    <Content Include="sample\static\css\defaults.css" />
+    <Content Include="sample\static\css\plot.css" />
+    <Content Include="sample\views\index.html" />
+    <Content Include="src\plot.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="build\" />
+    <Folder Include="lib\" />
+    <Folder Include="lib\goog\" />
+    <Folder Include="sample\" />
+    <Folder Include="sample\routes\" />
+    <Folder Include="sample\static\" />
+    <Folder Include="sample\static\assets\" />
+    <Folder Include="sample\static\css\" />
+    <Folder Include="sample\static\js\" />
+    <Folder Include="sample\views\" />
+    <Folder Include="src\" />
+    <Folder Include="src\gispace\" />
+    <Folder Include="src\gispace\event\" />
+    <Folder Include="src\gispace\plot\" />
+    <Folder Include="src\gispace\tool\" />
+    <Folder Include="src\gispace\util\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="build\goog.debug.js" />
+    <Compile Include="build\plot.debug.js" />
+    <Compile Include="build\plot.js" />
+    <Compile Include="gulpfile.js" />
+    <Compile Include="lib\goog\array.js" />
+    <Compile Include="lib\goog\asserts.js" />
+    <Compile Include="lib\goog\base.js" />
+    <Compile Include="lib\goog\browser.js" />
+    <Compile Include="lib\goog\browserevent.js" />
+    <Compile Include="lib\goog\browserfeature.js" />
+    <Compile Include="lib\goog\disposable.js" />
+    <Compile Include="lib\goog\engine.js" />
+    <Compile Include="lib\goog\entrypointregistry.js" />
+    <Compile Include="lib\goog\error.js" />
+    <Compile Include="lib\goog\event.js" />
+    <Compile Include="lib\goog\eventid.js" />
+    <Compile Include="lib\goog\events.js" />
+    <Compile Include="lib\goog\eventtype.js" />
+    <Compile Include="lib\goog\idisposable.js" />
+    <Compile Include="lib\goog\listenable.js" />
+    <Compile Include="lib\goog\listener.js" />
+    <Compile Include="lib\goog\listenermap.js" />
+    <Compile Include="lib\goog\nodetype.js" />
+    <Compile Include="lib\goog\object.js" />
+    <Compile Include="lib\goog\reflect.js" />
+    <Compile Include="lib\goog\string.js" />
+    <Compile Include="lib\goog\useragent.js" />
+    <Compile Include="lib\goog\util.js" />
+    <Compile Include="sample\app.js" />
+    <Compile Include="sample\routes\index.js" />
+    <Content Include="sample\static\js\app.js" />
+    <Content Include="sample\static\js\goog.debug.js" />
+    <Content Include="sample\static\js\plot.debug.js" />
+    <Content Include="sample\static\js\plot.js" />
+    <Compile Include="src\gispace\Constants.js" />
+    <Compile Include="src\gispace\event\Event.js" />
+    <Compile Include="src\gispace\event\PlotDrawEvent.js" />
+    <Compile Include="src\gispace\event\PlotEditEvent.js" />
+    <Compile Include="src\gispace\GISpace.js" />
+    <Compile Include="src\gispace\PlotDecoder.js" />
+    <Compile Include="src\gispace\PlotEncoder.js" />
+    <Compile Include="src\gispace\PlotFactory.js" />
+    <Compile Include="src\gispace\PlotTypes.js" />
+    <Compile Include="src\gispace\PlotUtils.js" />
+    <Compile Include="src\gispace\plot\Arc.js" />
+    <Compile Include="src\gispace\plot\AssaultDirection.js" />
+    <Compile Include="src\gispace\plot\AttackArrow.js" />
+    <Compile Include="src\gispace\plot\Circle.js" />
+    <Compile Include="src\gispace\plot\ClosedCurve.js" />
+    <Compile Include="src\gispace\plot\Curve.js" />
+    <Compile Include="src\gispace\plot\DoubleArrow.js" />
+    <Compile Include="src\gispace\plot\Ellipse.js" />
+    <Compile Include="src\gispace\plot\FineArrow.js" />
+    <Compile Include="src\gispace\plot\FreehandLine.js" />
+    <Compile Include="src\gispace\plot\FreehandPolygon.js" />
+    <Compile Include="src\gispace\plot\GatheringPlace.js" />
+    <Compile Include="src\gispace\plot\Lune.js" />
+    <Compile Include="src\gispace\plot\Marker.js" />
+    <Compile Include="src\gispace\plot\Plot.js" />
+    <Compile Include="src\gispace\plot\Polygon.js" />
+    <Compile Include="src\gispace\plot\Polyline.js" />
+    <Compile Include="src\gispace\plot\Rectangle.js" />
+    <Compile Include="src\gispace\plot\Sector.js" />
+    <Compile Include="src\gispace\plot\SquadCombat.js" />
+    <Compile Include="src\gispace\plot\StraightArrow.js" />
+    <Compile Include="src\gispace\plot\TailedAttackArrow.js" />
+    <Compile Include="src\gispace\plot\TailedSquadCombat.js" />
+    <Compile Include="src\gispace\tool\PlotDraw.js" />
+    <Compile Include="src\gispace\tool\PlotEdit.js" />
+    <Compile Include="src\gispace\util\DomUtils.js" />
+    <Compile Include="src\gispace\util\Utils.js" />
+  </ItemGroup>
+  <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:23654/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>True</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

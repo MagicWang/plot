@@ -1,0 +1,8 @@
+{
+  "name": "arcgis-plot-api-sample",
+  "author": "wj",
+  "dependencies":{
+      "express": "*",
+      "swig": "*"
+  }
+}
