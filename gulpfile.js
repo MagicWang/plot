@@ -101,4 +101,4 @@ gulp.task('watch', function () {
         console.log('File ' + e.path + ' was ' + e.type + ', running compact css ...');
     });
 });
-gulp.task('default', ['compact-goog-debug', 'compact-js', 'compact-js-debug', 'compact-css', 'watch']);
+gulp.task('default', ['compact-js-debug', 'compact-css', 'watch']);

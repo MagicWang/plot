@@ -11,15 +11,13 @@ define([
 ], function (declare, constants, plotTypes, plotUtils, plotFactory, domUtils, eventType, PlotDrawEvent, GraphicsLayer) {
     return declare(null, {
         constructor: function (map) {
-            if (!map) {
+            if (!map) 
                 return;
-            }
             this.activePlot = null;
             this.startPoint = null;
             this.ghostControlPoints = null;
             this.controlPoints = null;
             this.map = map;
-            this.mapViewport = this.map.getViewport();
             this.mouseOver = false;
             this.elementTable = {};
             this.activeControlPointId = null;
@@ -106,7 +104,7 @@ define([
         controlPointMouseMoveHandler: function (e) {
             var coordinate = map.getCoordinateFromPixel([e.offsetX, e.offsetY]);
             if (this.activeControlPointId) {
-                var plot = this.activePlot.getGeometry();
+                var plot = this.activePlot.geometry;
                 var index = this.elementTable[this.activeControlPointId];
                 plot.updatePoint(coordinate, index);
                 var overlay = this.map.getOverlayById(this.activeControlPointId);
@@ -119,13 +117,13 @@ define([
             goog.events.unlisten(this.mapViewport, eventType.MOUSEUP,
                 this.controlPointMouseUpHandler, false, this);
         },
-        activate: function (plot) {
+        activate: function (graphic) {
 
-            if (!plot || !(plot instanceof ol.Feature) || plot == this.activePlot) {
+            if (!graphic|| graphic == this.activePlot) {
                 return;
             }
 
-            var geom = plot.getGeometry();
+            var geom = graphic.geometry;
             if (!geom.isPlot()) {
                 return;
             }
@@ -145,7 +143,7 @@ define([
             if (!this.activePlot) {
                 return [];
             }
-            var geom = this.activePlot.getGeometry();
+            var geom = this.activePlot.geometry;
             return geom.getPoints();
         },
         plotMouseOverOutHandler: function (e) {
@@ -187,7 +185,7 @@ define([
                 overlay.setPosition(coordinate);
                 overlay.setPositioning('center-center');
             }
-            var plot = this.activePlot.getGeometry();
+            var plot = this.activePlot.geometry;
             plot.setPoints(newPoints);
         },
         plotMouseUpHandler: function (e) {

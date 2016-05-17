@@ -1,5 +1,6 @@
 define([
     "dojo/_base/declare",
+    "dojo/Evented",
     "./constants",
     "./plotTypes",
     "./plotUtils",
@@ -8,8 +9,8 @@ define([
     "./event/PlotDrawEvent",
     "esri/layers/GraphicsLayer",
     "esri/graphic"
-], function (declare, constants, plotTypes, plotUtils, plotFactory, eventType, PlotDrawEvent, GraphicsLayer, Graphic) {
-    return declare(null, {
+], function (declare, Evented, constants, plotTypes, plotUtils, plotFactory, eventType, PlotDrawEvent, GraphicsLayer, Graphic) {
+    return declare([Evented], {
         constructor: function (map) {
             this.points = null;
             this.plot = null;
@@ -38,9 +39,7 @@ define([
             this.plotParams = null;
             this.activateMapTools();
         },
-        isDrawing: function () {
-            return this.plotType != null;
-        },
+        isDrawing: this.plotType != null,
         setMap: function (value) {
             this.map = value;
         },
@@ -113,6 +112,7 @@ define([
             this.plot = null;
             this.plotType = null;
             this.plotParams = null;
+            this.emit(eventType.DRAW_END, this.graphic);
             //this.dispatchEvent(new PlotDrawEvent(eventType.DRAW_END, this.graphic));
             this.graphic = null;
         },
