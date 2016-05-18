@@ -1,13 +1,11 @@
 define([
     "dojo/_base/declare",
     "../constants",
-    "../plotTypes",
     "../plotUtils",
     "./Geometry"
-], function (declare, constants, plotTypes, plotUtils, Geometry) {
+], function (declare, constants, plotUtils, Geometry) {
     return declare([Geometry], {
         constructor: function (points) {
-            this.type = plotTypes.DOUBLE_ARROW;
             this.geometryType = "polygon";
             this.headHeightFactor = 0.25;
             this.headWidthFactor = 0.3;

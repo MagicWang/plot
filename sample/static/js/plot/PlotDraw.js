@@ -3,11 +3,7 @@ define([
     "dojo/_base/lang",
     "dojo/Evented",
     "./constants",
-    "./plotTypes",
     "./plotUtils",
-    "./plotFactory",
-    "./event/eventType",
-    "./event/PlotDrawEvent",
     "esri/layers/GraphicsLayer",
     "esri/graphic",
     "esri/Color",
@@ -16,8 +12,30 @@ define([
     "esri/symbols/SimpleFillSymbol",
     "esri/geometry/Point",
     "esri/geometry/Polyline",
-    "esri/geometry/Polygon"
-], function (declare, lang, Evented, constants, plotTypes, plotUtils, plotFactory, eventType, PlotDrawEvent, GraphicsLayer, Graphic, Color, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, Point, Polyline, Polygon) {
+    "esri/geometry/Polygon",
+    "./geometry/Arc",
+    "./geometry/AssaultDirection",
+    "./geometry/AttackArrow",
+    "./geometry/Circle",
+    "./geometry/ClosedCurve",
+    "./geometry/Curve",
+    "./geometry/DoubleArrow",
+    "./geometry/Ellipse",
+    "./geometry/FineArrow",
+    "./geometry/FreehandLine",
+    "./geometry/FreehandPolygon",
+    "./geometry/GatheringPlace",
+    "./geometry/Lune",
+    "./geometry/Marker",
+    "./geometry/Polygon",
+    "./geometry/Polyline",
+    "./geometry/Rectangle",
+    "./geometry/Sector",
+    "./geometry/SquadCombat",
+    "./geometry/StraightArrow",
+    "./geometry/TailedAttackArrow",
+    "./geometry/TailedSquadCombat"
+], function (declare, lang, Evented, constants, plotUtils, GraphicsLayer, Graphic, Color, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, Point, Polyline, Polygon, Arc, AssaultDirection, AttackArrow, Circle, ClosedCurve, Curve, DoubleArrow, Ellipse, FineArrow, FreehandLine, FreehandPolygon, GatheringPlace, Lune, Marker, Polygon, Polyline, Rectangle, Sector, SquadCombat, StraightArrow, TailedAttackArrow, TailedSquadCombat) {
     var PlotDraw = declare([Evented], {
         constructor: function (map) {
             this.points = null;
@@ -53,7 +71,7 @@ define([
         isDrawing: this.plotType != null,
         mapFirstClickHandler: function (e) {
             this.points.push([e.mapPoint.x, e.mapPoint.y]);
-            this.plot = plotFactory.createPlot(this.plotType, this.points, this.plotParams);
+            this.plot = this.createPlot(this.plotType, this.points, this.plotParams);
             this.graphic = new Graphic();
             this.graphic.setSymbol(this.generateSymbol());
             this.drawOverlay.add(this.graphic);
@@ -118,7 +136,7 @@ define([
             this.activateMapTools();
             this.disconnectEventHandlers();
             this.map.removeLayer(this.drawOverlay);
-            this.emit(eventType.DRAW_END, this.generateGeometry());
+            this.emit("draw-end", this.generateGeometry());
             this.points = [];
             this.plot = null;
             this.plotType = null;
@@ -157,6 +175,54 @@ define([
                 symbol = this.fillSymbol;
             }
             return symbol;
+        },
+        createPlot: function (type, points) {
+            switch (type) {
+                case PlotDraw.ARC:
+                    return new Arc(points);
+                case PlotDraw.ELLIPSE:
+                    return new Ellipse(points);
+                case PlotDraw.CURVE:
+                    return new Curve(points);
+                case PlotDraw.CLOSED_CURVE:
+                    return new ClosedCurve(points);
+                case PlotDraw.LUNE:
+                    return new Lune(points);
+                case PlotDraw.SECTOR:
+                    return new Sector(points);
+                case PlotDraw.GATHERING_PLACE:
+                    return new GatheringPlace(points);
+                case PlotDraw.STRAIGHT_ARROW:
+                    return new StraightArrow(points);
+                case PlotDraw.ASSAULT_DIRECTION:
+                    return new AssaultDirection(points);
+                case PlotDraw.ATTACK_ARROW:
+                    return new AttackArrow(points);
+                case PlotDraw.FINE_ARROW:
+                    return new FineArrow(points);
+                case PlotDraw.CIRCLE:
+                    return new Circle(points);
+                case PlotDraw.DOUBLE_ARROW:
+                    return new DoubleArrow(points);
+                case PlotDraw.TAILED_ATTACK_ARROW:
+                    return new TailedAttackArrow(points);
+                case PlotDraw.SQUAD_COMBAT:
+                    return new SquadCombat(points);
+                case PlotDraw.TAILED_SQUAD_COMBAT:
+                    return new TailedSquadCombat(points);
+                case PlotDraw.FREEHAND_LINE:
+                    return new FreehandLine(points);
+                case PlotDraw.FREEHAND_POLYGON:
+                    return new FreehandPolygon(points);
+                case PlotDraw.POLYGON:
+                    return new Polygon(points);
+                case PlotDraw.MARKER:
+                    return new Marker(points);
+                case PlotDraw.RECTANGLE:
+                    return new Rectangle(points);
+                case PlotDraw.POLYLINE:
+                    return new Polyline(points);
+            }
         }
     });
     var constants = {

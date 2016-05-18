@@ -56,7 +56,6 @@
     <Folder Include="sample\views\" />
     <Folder Include="src\" />
     <Folder Include="src\plot\" />
-    <Folder Include="src\plot\event\" />
     <Folder Include="src\plot\geometry\" />
   </ItemGroup>
   <ItemGroup>
@@ -89,13 +88,8 @@
     <Compile Include="sample\routes\index.js" />
     <Content Include="sample\static\js\app.js" />
     <Content Include="src\plot\constants.js" />
-    <Content Include="src\plot\event\eventType.js" />
-    <Content Include="src\plot\event\PlotDrawEvent.js" />
-    <Content Include="src\plot\event\PlotEditEvent.js" />
     <Content Include="src\plot\PlotDecoder.js" />
     <Content Include="src\plot\PlotEncoder.js" />
-    <Content Include="src\plot\plotFactory.js" />
-    <Content Include="src\plot\plotTypes.js" />
     <Content Include="src\plot\plotUtils.js" />
     <Content Include="src\plot\geometry\Arc.js" />
     <Content Include="src\plot\geometry\AssaultDirection.js" />

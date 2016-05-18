@@ -1,13 +1,11 @@
 define([
     "dojo/_base/declare",
     "../constants",
-    "../plotTypes",
     "../plotUtils",
     "./AttackArrow"
-], function (declare, constants, plotTypes, plotUtils, AttackArrow) {
+], function (declare, constants, plotUtils, AttackArrow) {
     return declare([AttackArrow], {
         constructor: function (points) {
-            this.type = plotTypes.SQUAD_COMBAT;
             this.geometryType = "polygon";
             this.headHeightFactor = 0.18;
             this.headWidthFactor = 0.3;

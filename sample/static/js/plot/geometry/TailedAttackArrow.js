@@ -1,12 +1,10 @@
 define([
     "dojo/_base/declare",
-    "../plotTypes",
     "../plotUtils",
     "./AttackArrow"
-], function (declare, plotTypes, plotUtils, AttackArrow) {
+], function (declare, plotUtils, AttackArrow) {
     return declare([AttackArrow], {
         constructor: function (points) {
-            this.type = plotTypes.TAILED_ATTACK_ARROW;
             this.geometryType = "polygon";
             this.headHeightFactor = 0.18;
             this.headWidthFactor = 0.3;

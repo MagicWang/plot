@@ -1,11 +1,9 @@
 define([
     "dojo/_base/declare",
-    "../plotTypes",
     "./FineArrow"
-], function (declare, plotTypes, FineArrow) {
+], function (declare, FineArrow) {
     return declare([FineArrow], {
         constructor: function (points) {
-            this.type = plotTypes.ASSAULT_DIRECTION;
             this.geometryType = "polygon";
             this.tailWidthFactor = 0.2;
             this.neckWidthFactor = 0.25;

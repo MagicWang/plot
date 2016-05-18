@@ -1,12 +1,10 @@
 define([
     "dojo/_base/declare",
-    "../plotTypes",
     "../plotUtils",
     "./Geometry"
-], function (declare, plotTypes, plotUtils, Geometry) {
+], function (declare, plotUtils, Geometry) {
     return declare([Geometry], {
         constructor: function (points) {
-            this.type = plotTypes.RECTANGLE;
             this.geometryType = "polygon";
             this.fixPointCount = 2;
             this.setPoints(points);
