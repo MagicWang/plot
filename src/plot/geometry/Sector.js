@@ -2,12 +2,12 @@ define([
     "dojo/_base/declare",
     "../plotTypes",
     "../plotUtils",
-    "./Geometry",
-    "esri/geometry/Polygon"
-], function (declare, plotTypes, plotUtils, Geometry, Polygon) {
-    return declare([Polygon, Geometry], {
+    "./Geometry"
+], function (declare, plotTypes, plotUtils, Geometry) {
+    return declare([Geometry], {
         constructor: function (points) {
             this.type = plotTypes.SECTOR;
+            this.geometryType = "polygon";
             this.fixPointCount = 3;
             this.setPoints(points);
         },
@@ -15,7 +15,7 @@ define([
             if (this.getPointCount() < 2)
                 return;
             if (this.getPointCount() == 2)
-                this.setCoordinates([this.points]);
+                this.paths = this.points;
             else {
                 var pnts = this.getPoints();
                 var center = pnts[0];
@@ -26,7 +26,7 @@ define([
                 var endAngle = plotUtils.getAzimuth(pnt3, center);
                 var pList = plotUtils.getArcPoints(center, radius, startAngle, endAngle);
                 pList.push(center, pList[0]);
-                this.setCoordinates([pList]);
+                this.paths = pList;
             }
         }
     });

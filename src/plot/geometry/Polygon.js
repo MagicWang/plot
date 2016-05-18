@@ -2,12 +2,12 @@ define([
     "dojo/_base/declare",
     "../plotTypes",
     "../plotUtils",
-    "./Geometry",
-    "esri/geometry/Polygon"
-], function (declare, plotTypes, plotUtils, Geometry, Polygon) {
-    return declare([Polygon, Geometry], {
+    "./Geometry"
+], function (declare, plotTypes, plotUtils, Geometry) {
+    return declare([Geometry], {
         constructor: function (points) {
             this.type = plotTypes.POLYGON;
+            this.geometryType = "polygon";
             this.setPoints(points);
         },
         generate: function () {
@@ -15,7 +15,7 @@ define([
             if (count < 2) {
                 return;
             }
-            this.setCoordinates([this.points]);
+            this.paths = this.points;
         }
     });
 });

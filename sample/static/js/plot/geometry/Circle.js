@@ -3,12 +3,12 @@ define([
     "../constants",
     "../plotTypes",
     "../plotUtils",
-    "./Geometry",
-    "esri/geometry/Polygon"
-], function (declare, constants, plotTypes, plotUtils, Geometry, Polygon) {
-    return declare([Polygon, Geometry], {
+    "./Geometry"
+], function (declare, constants, plotTypes, plotUtils, Geometry) {
+    return declare([Geometry], {
         constructor: function (points) {
             this.type = plotTypes.CIRCLE;
+            this.geometryType = "polygon";
             this.fixPointCount = 2;
             this.setPoints(points);
         },
@@ -19,7 +19,7 @@ define([
             }
             var center = this.points[0];
             var radius = plotUtils.distance(center, this.points[1]);
-            this.setCoordinates([this.generatePoints(center, radius)]);
+            this.paths = this.generatePoints(center, radius);
         },
         generatePoints: function (center, radius) {
             var x, y, angle, points = [];

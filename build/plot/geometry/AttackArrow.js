@@ -3,12 +3,12 @@ define([
     "../constants",
     "../plotTypes",
     "../plotUtils",
-    "./Geometry",
-    "esri/geometry/Polygon"
-], function (declare, constants, plotTypes, plotUtils, Geometry, Polygon) {
-    return declare([Polygon, Geometry], {
+    "./Geometry"
+], function (declare, constants, plotTypes, plotUtils, Geometry) {
+    return declare([Geometry], {
         constructor: function (points) {
             this.type = plotTypes.ATTACK_ARROW;
+            this.geometryType = "polygon";
             this.headHeightFactor = 0.18;
             this.headWidthFactor = 0.3;
             this.neckHeightFactor = 0.85;
@@ -21,7 +21,7 @@ define([
                 return;
             }
             if (this.getPointCount() == 2) {
-                this.setCoordinates([this.points]);
+                this.paths = this.points;
                 return;
             }
             var pnts = this.getPoints();
@@ -50,8 +50,7 @@ define([
 
             leftPnts = plotUtils.getQBSplinePoints(leftPnts);
             rightPnts = plotUtils.getQBSplinePoints(rightPnts);
-
-            this.setCoordinates([leftPnts.concat(headPnts, rightPnts.reverse())]);
+            this.paths =leftPnts.concat(headPnts, rightPnts.reverse());
         },
         getArrowHeadPoints: function (points, tailLeft, tailRight) {
             var len = plotUtils.getBaseLength(points);

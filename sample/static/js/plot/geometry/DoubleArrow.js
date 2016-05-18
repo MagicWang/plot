@@ -3,12 +3,12 @@ define([
     "../constants",
     "../plotTypes",
     "../plotUtils",
-    "./Geometry",
-    "esri/geometry/Polygon"
-], function (declare, constants, plotTypes, plotUtils, Geometry, Polygon) {
-    return declare([Polygon, Geometry], {
+    "./Geometry"
+], function (declare, constants, plotTypes, plotUtils, Geometry) {
+    return declare([Geometry], {
         constructor: function (points) {
             this.type = plotTypes.DOUBLE_ARROW;
+            this.geometryType = "polygon";
             this.headHeightFactor = 0.25;
             this.headWidthFactor = 0.3;
             this.neckHeightFactor = 0.85;
@@ -24,7 +24,7 @@ define([
                 return;
             }
             if (count == 2) {
-                this.setCoordinates([this.points]);
+                this.paths = this.points;
                 return;
             }
             var pnt1 = this.points[0];
@@ -63,7 +63,7 @@ define([
             lrBodyPnts = plotUtils.getBezierPoints(lrBodyPnts);
 
             var pnts = rlBodyPnts.concat(rArrowPnts, bodyPnts, lArrowPnts, lrBodyPnts);
-            this.setCoordinates([pnts]);
+            this.paths = pnts;
         },
         finishDrawing: function () {
             if (this.getPointCount() == 3 && this.tempPoint4 != null)

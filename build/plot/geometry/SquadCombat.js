@@ -8,6 +8,7 @@ define([
     return declare([AttackArrow], {
         constructor: function (points) {
             this.type = plotTypes.SQUAD_COMBAT;
+            this.geometryType = "polygon";
             this.headHeightFactor = 0.18;
             this.headWidthFactor = 0.3;
             this.neckHeightFactor = 0.85;
@@ -34,10 +35,9 @@ define([
 
             leftPnts = plotUtils.getQBSplinePoints(leftPnts);
             rightPnts = plotUtils.getQBSplinePoints(rightPnts);
-
-            this.setCoordinates([leftPnts.concat(headPnts, rightPnts.reverse())]);
+            this.paths = leftPnts.concat(headPnts, rightPnts.reverse());
         },
-        getTailPoints : function (points) {
+        getTailPoints: function (points) {
             var allLen = plotUtils.getBaseLength(points);
             var tailWidth = allLen * this.tailWidthFactor;
             var tailLeft = plotUtils.getThirdPoint(points[1], points[0], constants.HALF_PI, tailWidth, false);

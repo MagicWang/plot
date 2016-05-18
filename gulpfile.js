@@ -79,8 +79,8 @@ gulp.task('compact-js-debug', function () {
     return gulp.src(['./src/**/*.js'])
         //.pipe(concat('plot.debug.js'))
         .pipe(gulp.dest('./build/'))
-        .pipe(gulp.dest('./sample/static/js'))
-        .pipe(notify({ message: 'compact-js-debug task complete' }));
+        .pipe(gulp.dest('./sample/static/js'));
+        //.pipe(notify({ message: 'compact-js-debug task complete' }))
 });
 
 gulp.task('compact-css', function () {
@@ -88,8 +88,8 @@ gulp.task('compact-css', function () {
         .pipe(concat('plot.css'))
         .pipe(gulp.dest('./build/'))
         .pipe(gulp.dest('./sample/static/css'))
-        .pipe(cssnano())
-        .pipe(notify({ message: 'compact-css task complete' }));
+        .pipe(cssnano());
+        //.pipe(notify({ message: 'compact-css task complete' }))
 });
 gulp.task('watch', function () {
     var jsWatch = gulp.watch('./src/**/*.js', ['compact-js', 'compact-js-debug']);

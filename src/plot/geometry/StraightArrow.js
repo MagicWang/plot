@@ -2,12 +2,12 @@ define([
     "dojo/_base/declare",
     "../plotTypes",
     "../plotUtils",
-    "./Geometry",
-    "esri/geometry/Polyline"
-], function (declare, plotTypes, plotUtils, Geometry, Polyline) {
-    return declare([Polyline, Geometry], {
+    "./Geometry"
+], function (declare, plotTypes, plotUtils, Geometry) {
+    return declare([Geometry], {
         constructor: function (points) {
             this.type = plotTypes.STRAIGHT_ARROW;
+            this.geometryType = "polyline";
             this.fixPointCount = 2;
             this.maxArrowLength = 3000000;
             this.arrowLengthScale = 5;
@@ -25,7 +25,7 @@ define([
             len = len > this.maxArrowLength ? this.maxArrowLength : len;
             var leftPnt = plotUtils.getThirdPoint(pnt1, pnt2, Math.PI / 6, len, false);
             var rightPnt = plotUtils.getThirdPoint(pnt1, pnt2, Math.PI / 6, len, true);
-            this.setCoordinates([pnt1, pnt2, leftPnt, pnt2, rightPnt]);
+            this.paths = [pnt1, pnt2, leftPnt, pnt2, rightPnt];
         }
     });
 });

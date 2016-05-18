@@ -3,12 +3,12 @@ define([
     "../constants",
     "../plotTypes",
     "../plotUtils",
-    "./Geometry",
-    "esri/geometry/Polygon"
-], function (declare, constants, plotTypes, plotUtils, Geometry, Polygon) {
-    return declare([Polygon, Geometry], {
+    "./Geometry"
+], function (declare, constants, plotTypes, plotUtils, Geometry) {
+    return declare([Geometry], {
         constructor: function (points) {
             this.type = plotTypes.FINE_ARROW;
+            this.geometryType = "polygon";
             this.tailWidthFactor = 0.15;
             this.neckWidthFactor = 0.2;
             this.headWidthFactor = 0.25;
@@ -36,7 +36,7 @@ define([
             var neckLeft = plotUtils.getThirdPoint(pnt1, pnt2, this.neckAngle, neckWidth, false);
             var neckRight = plotUtils.getThirdPoint(pnt1, pnt2, this.neckAngle, neckWidth, true);
             var pList = [tailLeft, neckLeft, headLeft, pnt2, headRight, neckRight, tailRight];
-            this.setCoordinates([pList]);
+            this.paths = pList;
         }
     });
 });

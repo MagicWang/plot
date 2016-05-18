@@ -2,12 +2,12 @@ define([
     "dojo/_base/declare",
     "../plotTypes",
     "../plotUtils",
-    "./Geometry",
-    "esri/geometry/Polyline"
-], function (declare, plotTypes, plotUtils, Geometry, Polyline) {
-    return declare([Polyline, Geometry], {
+    "./Geometry"
+], function (declare, plotTypes, plotUtils, Geometry) {
+    return declare([Geometry], {
         constructor: function (points) {
             this.type = plotTypes.CURVE;
+            this.geometryType = "polyline";
             this.t = 0.3;
             this.setPoints(points);
         },
@@ -17,9 +17,9 @@ define([
                 return;
             }
             if (count == 2) {
-                this.setCoordinates(this.points);
+                this.paths = this.points;
             } else {
-                this.setCoordinates(plotUtils.getCurvePoints(this.t, this.points));
+                this.paths = plotUtils.getCurvePoints(this.t, this.points);
             }
         }
     });

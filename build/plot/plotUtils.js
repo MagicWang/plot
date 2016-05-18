@@ -1,4 +1,5 @@
-define(function () {
+define(["./constants"
+], function (constants) {
     var util = {};
     util.distance = function (pnt1, pnt2) {
         return Math.sqrt(Math.pow((pnt1[0] - pnt2[0]), 2) + Math.pow((pnt1[1] - pnt2[1]), 2));
@@ -54,7 +55,7 @@ define(function () {
         if (endPnt[1] >= startPnt[1] && endPnt[0] >= startPnt[0])
             azimuth = angle + Math.PI;
         else if (endPnt[1] >= startPnt[1] && endPnt[0] < startPnt[0])
-            azimuth = P.Constants.TWO_PI - angle;
+            azimuth = constants.TWO_PI - angle;
         else if (endPnt[1] < startPnt[1] && endPnt[0] < startPnt[0])
             azimuth = angle;
         else if (endPnt[1] < startPnt[1] && endPnt[0] >= startPnt[0])
@@ -64,7 +65,7 @@ define(function () {
     
     util.getAngleOfThreePoints = function (pntA, pntB, pntC) {
         var angle = util.getAzimuth(pntB, pntA) - util.getAzimuth(pntB, pntC);
-        return (angle < 0 ? angle + P.Constants.TWO_PI : angle);
+        return (angle < 0 ? angle + constants.TWO_PI : angle);
     };
     
     util.isClockWise = function (pnt1, pnt2, pnt3) {
@@ -100,9 +101,9 @@ define(function () {
     util.getArcPoints = function (center, radius, startAngle, endAngle) {
         var x, y, pnts = [];
         var angleDiff = endAngle - startAngle;
-        angleDiff = angleDiff < 0 ? angleDiff + P.Constants.TWO_PI : angleDiff;
-        for (var i = 0; i <= P.Constants.FITTING_COUNT; i++) {
-            var angle = startAngle + angleDiff * i / P.Constants.FITTING_COUNT;
+        angleDiff = angleDiff < 0 ? angleDiff + constants.TWO_PI : angleDiff;
+        for (var i = 0; i <= constants.FITTING_COUNT; i++) {
+            var angle = startAngle + angleDiff * i / constants.FITTING_COUNT;
             x = center[0] + radius * Math.cos(angle);
             y = center[1] + radius * Math.sin(angle);
             pnts.push([x, y]);
@@ -117,7 +118,7 @@ define(function () {
         var uY = normal[1] / dist;
         var d1 = util.distance(pnt1, pnt2);
         var d2 = util.distance(pnt2, pnt3);
-        if (dist > P.Constants.ZERO_TOLERANCE) {
+        if (dist > constants.ZERO_TOLERANCE) {
             if (util.isClockWise(pnt1, pnt2, pnt3)) {
                 var dt = t * d1;
                 var x = pnt2[0] - dt * uY;
@@ -185,8 +186,8 @@ define(function () {
             pnt1 = controlPoints[i];
             pnt2 = controlPoints[i + 1];
             points.push(pnt1);
-            for (var t = 0; t < P.Constants.FITTING_COUNT; t++) {
-                var pnt = util.getCubicValue(t / P.Constants.FITTING_COUNT, pnt1, normals[i * 2], normals[i * 2 + 1], pnt2);
+            for (var t = 0; t < constants.FITTING_COUNT; t++) {
+                var pnt = util.getCubicValue(t / constants.FITTING_COUNT, pnt1, normals[i * 2], normals[i * 2 + 1], pnt2);
                 points.push(pnt);
             }
             points.push(pnt2);
@@ -202,7 +203,7 @@ define(function () {
         var normalRight = pnts[0];
         var normal = util.getNormal(pnt1, pnt2, pnt3);
         var dist = Math.sqrt(normal[0] * normal[0] + normal[1] * normal[1]);
-        if (dist > P.Constants.ZERO_TOLERANCE) {
+        if (dist > constants.ZERO_TOLERANCE) {
             var mid = util.mid(pnt1, pnt2);
             var pX = pnt1[0] - mid[0];
             var pY = pnt1[1] - mid[1];
@@ -241,7 +242,7 @@ define(function () {
         var normalLeft = pnts[1];
         var normal = util.getNormal(pnt1, pnt2, pnt3);
         var dist = Math.sqrt(normal[0] * normal[0] + normal[1] * normal[1]);
-        if (dist > P.Constants.ZERO_TOLERANCE) {
+        if (dist > constants.ZERO_TOLERANCE) {
             var mid = util.mid(pnt2, pnt3);
             var pX = pnt3[0] - mid[0];
             var pY = pnt3[1] - mid[1];

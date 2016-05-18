@@ -2,12 +2,12 @@ define([
     "dojo/_base/declare",
     "../plotTypes",
     "../plotUtils",
-    "./Geometry",
-    "esri/geometry/Polyline"
-], function (declare, plotTypes, plotUtils, Geometry, Polyline) {
-    return declare([Polyline, Geometry], {
+    "./Geometry"
+], function (declare, plotTypes, plotUtils, Geometry) {
+    return declare([Geometry], {
         constructor: function (points) {
             this.type = plotTypes.FREEHAND_LINE;
+            this.geometryType = "polyline";
             this.freehand = true;
             this.setPoints(points);
         },
@@ -16,7 +16,7 @@ define([
             if (count < 2) {
                 return;
             }
-            this.setCoordinates(this.points);
+            this.paths = this.points;
         }
     });
 });

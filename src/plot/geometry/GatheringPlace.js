@@ -3,12 +3,12 @@ define([
     "../constants",
     "../plotTypes",
     "../plotUtils",
-    "./Geometry",
-    "esri/geometry/Polygon"
-], function (declare, constants, plotTypes, plotUtils, Geometry, Polygon) {
-    return declare([Polygon, Geometry], {
+    "./Geometry"
+], function (declare, constants, plotTypes, plotUtils, Geometry) {
+    return declare([Geometry], {
         constructor: function (points) {
             this.type = plotTypes.GATHERING_PLACE;
+            this.geometryType = "polygon";
             this.t = 0.4;
             this.fixPointCount = 3;
             this.setPoints(points);
@@ -48,7 +48,7 @@ define([
                 }
                 pList.push(pnt2);
             }
-            this.setCoordinates([pList]);
+            this.paths = pList;
         }
     });
 });

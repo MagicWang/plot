@@ -7,6 +7,7 @@ define([
     return declare([AttackArrow], {
         constructor: function (points) {
             this.type = plotTypes.TAILED_ATTACK_ARROW;
+            this.geometryType = "polygon";
             this.headHeightFactor = 0.18;
             this.headWidthFactor = 0.3;
             this.neckHeightFactor = 0.85;
@@ -23,7 +24,7 @@ define([
                 return;
             }
             if (this.getPointCount() == 2) {
-                this.setCoordinates([this.points]);
+                this.paths = this.points;
                 return;
             }
             var pnts = this.getPoints();
@@ -52,8 +53,7 @@ define([
 
             leftPnts = plotUtils.getQBSplinePoints(leftPnts);
             rightPnts = plotUtils.getQBSplinePoints(rightPnts);
-
-            this.setCoordinates([leftPnts.concat(headPnts, rightPnts.reverse(), [this.swallowTailPnt, leftPnts[0]])]);
+            this.paths = leftPnts.concat(headPnts, rightPnts.reverse(), [this.swallowTailPnt, leftPnts[0]]);
         }
     });
 });

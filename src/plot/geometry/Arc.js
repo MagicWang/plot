@@ -2,12 +2,12 @@ define([
     "dojo/_base/declare",
     "../plotTypes",
     "../plotUtils",
-    "./Geometry",
-    "esri/geometry/Polyline"
-], function (declare, plotTypes, plotUtils, Geometry, Polyline) {
-    return declare([Polyline, Geometry], {
+    "./Geometry"
+], function (declare, plotTypes, plotUtils, Geometry) {
+    return declare([Geometry], {
         constructor: function (points) {
             this.type = plotTypes.ARC;
+            this.geometryType = "polyline";
             this.fixPointCount = 3;
             this.setPoints(points);
         },
@@ -17,7 +17,7 @@ define([
                 return;
             }
             if (count == 2) {
-                this.setCoordinates(this.points);
+                this.paths = this.points;
             } else {
                 var pnt1 = this.points[0];
                 var pnt2 = this.points[1];
@@ -35,7 +35,7 @@ define([
                     startAngle = angle1;
                     endAngle = angle2;
                 }
-                this.setCoordinates(plotUtils.getArcPoints(center, radius, startAngle, endAngle));
+                this.paths = plotUtils.getArcPoints(center, radius, startAngle, endAngle);
             }
         }
     });

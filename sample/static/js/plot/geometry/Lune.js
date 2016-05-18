@@ -3,12 +3,12 @@ define([
     "../constants",
     "../plotTypes",
     "../plotUtils",
-    "./Geometry",
-    "esri/geometry/Polygon"
-], function (declare, constants, plotTypes, plotUtils, Geometry, Polygon) {
-    return declare([Polygon, Geometry], {
+    "./Geometry"
+], function (declare, constants, plotTypes, plotUtils, Geometry) {
+    return declare([Geometry], {
         constructor: function (points) {
             this.type = plotTypes.LUNE;
+            this.geometryType = "polygon";
             this.fixPointCount = 3;
             this.setPoints(points);
         },
@@ -41,7 +41,7 @@ define([
             }
             var pnts = plotUtils.getArcPoints(center, radius, startAngle, endAngle);
             pnts.push(pnts[0]);
-            this.setCoordinates([pnts]);
+            this.paths = pnts;
         }
     });
 });

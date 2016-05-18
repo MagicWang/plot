@@ -3,12 +3,12 @@ define([
     "../constants",
     "../plotTypes",
     "../plotUtils",
-    "./Geometry",
-    "esri/geometry/Polygon"
-], function (declare, constants, plotTypes, plotUtils, Geometry, Polygon) {
-    return declare([Polygon, Geometry], {
+    "./Geometry"
+], function (declare, constants, plotTypes, plotUtils, Geometry) {
+    return declare([Geometry], {
         constructor: function (points) {
             this.type = plotTypes.CLOSED_CURVE;
+            this.geometryType = "polygon";
             this.t = 0.3;
             this.setPoints(points);
         },
@@ -18,7 +18,7 @@ define([
                 return;
             }
             if (count == 2) {
-                this.setCoordinates([this.points]);
+                this.paths = this.points;
             }
             else {
                 var pnts = this.getPoints();
@@ -42,7 +42,7 @@ define([
                     }
                     pList.push(pnt2);
                 }
-                this.setCoordinates([pList]);
+                this.paths = pList;
             }
         }
     });
