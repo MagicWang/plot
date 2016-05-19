@@ -61,7 +61,7 @@ define([
             lrBodyPnts = plotUtils.getBezierPoints(lrBodyPnts);
 
             var pnts = rlBodyPnts.concat(rArrowPnts, bodyPnts, lArrowPnts, lrBodyPnts);
-            this.paths = pnts;
+            this.paths = pnts.concat([pnts[0]]);
         },
         finishDrawing: function () {
             if (this.getPointCount() == 3 && this.tempPoint4 != null)

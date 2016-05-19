@@ -43,38 +43,33 @@ require(["esri/map",
          // 初始化标绘绘制工具，添加绘制结束事件响应
          plotDraw = new PlotDraw(map);
          plotDraw.on("draw-end", onDrawEnd);
-         //map.on("click", function (e) {
-         //    map.graphics.add(new Graphic(e.mapPoint, markerSymbol));
-         //});
          // 初始化标绘编辑工具
-         //plotEdit = new PlotEdit(map);
-
-         // 绘制好的标绘符号，添加到FeatureOverlay显示。
-         //drawOverlay = new GraphicsLayer();
-         //map.graphics.on("click", function (e) {
-         //    if (plotDraw.isDrawing)
-         //        return;
-         //    if (e.graphic) {
-         //        // 开始编辑
-         //        //plotEdit.activate(e.graphic);
-         //        activeDelBtn();
-         //    } else {
-         //        // 结束编辑
-         //        //plotEdit.deactivate();
-         //        deactiveDelBtn();
-         //    }
-         //});
-         //map.addLayer(drawOverlay);
+         plotEdit = new PlotEdit(map);
+         map.on("load", function () {
+             map.graphics.on("click", function (e) {
+                 if (plotDraw.isDrawing)
+                     return;
+                 if (e.graphic) {
+                     // 开始编辑
+                     plotEdit.activate(e.graphic);
+                     activeDelBtn();
+                 } else {
+                     // 结束编辑
+                     plotEdit.deactivate();
+                     deactiveDelBtn();
+                 }
+             });
+         });
          initEvents();
      });
 function initEvents() {
-    require(["dojo/dom", "plot/plotTypes"], function (dom, plotTypes) {
+    require(["dojo/dom"], function (dom) {
         dom.byId("btn-delete").onclick = function () {
-            //if (drawOverlay && plotEdit && plotEdit.activePlot) {
-            //    drawOverlay.remove(plotEdit.activePlot);
-            //    plotEdit.deactivate();
-            //    deactiveDelBtn();
-            //}
+            if (plotEdit && plotEdit.graphic) {
+                map.graphics.remove(plotEdit.graphic);
+                plotEdit.deactivate();
+                deactiveDelBtn();
+            }
         };
         dom.byId("menu").onclick = function (evt) {
             if (evt.target.id === "menu") {
@@ -86,7 +81,7 @@ function initEvents() {
     });
 }
 // 绘制结束后，添加到FeatureOverlay显示。
-function onDrawEnd(geometry) {
+function onDrawEnd(evt) {
     require(["esri/graphic",
         "esri/geometry/Point",
         "esri/geometry/Polyline",
@@ -94,23 +89,25 @@ function onDrawEnd(geometry) {
     ],
      function (Graphic, Point, Polyline, Polygon) {
          var symbol;
-         if (geometry.isInstanceOf(Point)) {
+         if (evt.geometry.isInstanceOf(Point)) {
              symbol = markerSymbol;
-         } else if (geometry.isInstanceOf(Polyline)) {
+         } else if (evt.geometry.isInstanceOf(Polyline)) {
              symbol = lineSymbol;
-         } else if (geometry.isInstanceOf(Polygon)) {
+         } else if (evt.geometry.isInstanceOf(Polygon)) {
              symbol = fillSymbol;
          }
-         map.graphics.add(new Graphic(geometry, symbol));
+         var graphic = new Graphic(evt.geometry, symbol);
+         graphic.plot = evt.plot;
+         map.graphics.add(graphic);
          // 开始编辑
-         //plotEdit.activate(graphic);
+         plotEdit.activate(graphic);
          activeDelBtn();
      });
 };
 
 // 指定标绘类型，开始绘制。
 function activate(type) {
-    //plotEdit.deactivate();
+    plotEdit.deactivate();
     plotDraw.activate(type);
 };
 

@@ -4,7 +4,6 @@ define([
     "dojo/Evented",
     "./constants",
     "./plotUtils",
-    "esri/layers/GraphicsLayer",
     "esri/graphic",
     "esri/Color",
     "esri/symbols/SimpleMarkerSymbol",
@@ -35,148 +34,127 @@ define([
     "./geometry/StraightArrow",
     "./geometry/TailedAttackArrow",
     "./geometry/TailedSquadCombat"
-], function (declare, lang, Evented, constants, plotUtils, GraphicsLayer, Graphic, Color, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, Point, Polyline, Polygon, Arc, AssaultDirection, AttackArrow, Circle, ClosedCurve, Curve, DoubleArrow, Ellipse, FineArrow, FreehandLine, FreehandPolygon, GatheringPlace, Lune, Marker, Polygon, Polyline, Rectangle, Sector, SquadCombat, StraightArrow, TailedAttackArrow, TailedSquadCombat) {
+], function (declare, lang, Evented, constants, plotUtils, Graphic, Color, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, Point, Polyline, Polygon, Arc, AssaultDirection, AttackArrow, Circle, ClosedCurve, Curve, DoubleArrow, Ellipse, FineArrow, FreehandLine, FreehandPolygon, GatheringPlace, Lune, Marker, PlotPolygon, PlotPolyline, Rectangle, Sector, SquadCombat, StraightArrow, TailedAttackArrow, TailedSquadCombat) {
     var PlotDraw = declare([Evented], {
         constructor: function (map) {
-            this.points = null;
-            this.plot = null;
-            this.graphic = null;
-            this.plotType = null;
-            this.plotParams = null;
-            this.drawOverlay = new GraphicsLayer();
             this.markerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_SQUARE, 8, null, new Color("#000000"));
             this.lineSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color("#000000"), 2);
             this.fillSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, this.lineSymbol, new Color([0, 0, 0, 0.25]));
-            this.map = map;
+            this._firstClickHandler = lang.hitch(this, this._firstClickHandler);
+            this._nextClickHandler = lang.hitch(this, this._nextClickHandler);
+            this._doubleClickHandler = lang.hitch(this, this._doubleClickHandler);
+            this._mouseMoveHandler = lang.hitch(this, this._mouseMoveHandler);
+            this._points = null;
+            this._plot = null;
+            this._graphic = null;
+            this._plotType = null;
+            this._plotParams = null;
+            this._map = map;
         },
         activate: function (type, params) {
             this.deactivate();
-            this.deactivateMapTools();
-            this.map_FirstClick = map.on("click", lang.hitch(this, this.mapFirstClickHandler));
-            this.plotType = type;
-            this.plotParams = params;
-            this.map.addLayer(this.drawOverlay);
+            this._map.disableDoubleClickZoom();
+            this._firstClick_Connect = this._map.on("click", this._firstClickHandler);
+            this._plotType = type;
+            this._plotParams = params;
         },
         deactivate: function () {
-            this.disconnectEventHandlers();
-            this.map.removeLayer(this.drawOverlay);
-            this.drawOverlay.clear();
-            this.points = [];
-            this.plot = null;
-            this.graphic = null;
-            this.plotType = null;
-            this.plotParams = null;
-            this.activateMapTools();
+            if (this._firstClick_Connect)
+                this._firstClick_Connect.remove();
+            if (this._nextClick_Connect)
+                this._nextClick_Connect.remove();
+            if (this._doubleClick_Connect)
+                this._doubleClick_Connect.remove();
+            if (this._mouseMove_Connect)
+                this._mouseMove_Connect.remove();
+            this._map.enableDoubleClickZoom();
+            this._map.graphics.remove(this._graphic);
+            this._points = [];
+            this._plot = null;
+            this._graphic = null;
+            this._plotType = null;
+            this._plotParams = null;
         },
-        isDrawing: this.plotType != null,
-        mapFirstClickHandler: function (e) {
-            this.points.push([e.mapPoint.x, e.mapPoint.y]);
-            this.plot = this.createPlot(this.plotType, this.points, this.plotParams);
-            this.graphic = new Graphic();
-            this.graphic.setSymbol(this.generateSymbol());
-            this.drawOverlay.add(this.graphic);
-            this.map_FirstClick.remove();
+        isDrawing: this._plotType != null,
+        _firstClickHandler: function (e) {
+            this._points.push([e.mapPoint.x, e.mapPoint.y]);
+            this._plot = this._createPlot(this._plotType, this._points, this._plotParams);
+            this._graphic = new Graphic();
+            this._graphic.setSymbol(this._generateSymbol());
+            this._map.graphics.add(this._graphic);
+            this._firstClick_Connect.remove();
             //
-            if (this.plot.fixPointCount == this.plot.getPointCount()) {
-                this.mapDoubleClickHandler(e);
+            if (this._plot.fixPointCount == this._plot.getPointCount()) {
+                this._doubleClickHandler(e);
                 return;
             }
             //
-            this.map_NextClick = this.map.on("click", lang.hitch(this, this.mapNextClickHandler));
-            if (!this.plot.freehand) {
-                this.map_DoubleClick = this.map.on("dbl-click", lang.hitch(this, this.mapDoubleClickHandler));
+            this._nextClick_Connect = this._map.on("click", this._nextClickHandler);
+            if (!this._plot.freehand) {
+                this._doubleClick_Connect = this._map.on("dbl-click", this._doubleClickHandler);
             }
-            this.map_MouseMove = this.map.on("mouse-move", lang.hitch(this, this.mapMouseMoveHandler));
+            this._mouseMove_Connect = this._map.on("mouse-move", this._mouseMoveHandler);
         },
-        mapMouseMoveHandler: function (e) {
-            if (plotUtils.distance([e.mapPoint.x, e.mapPoint.y], this.points[this.points.length - 1]) < constants.ZERO_TOLERANCE)
-                return;
-            if (!this.plot.freehand) {
-                var pnts = this.points.concat([[e.mapPoint.x, e.mapPoint.y]]);
-                this.plot.setPoints(pnts);
-            } else {
-                this.points.push([e.mapPoint.x, e.mapPoint.y]);
-                this.plot.setPoints(this.points);
-            }
-            this.graphic.setGeometry(this.generateGeometry());
-        },
-        mapNextClickHandler: function (e) {
-            if (!this.plot.freehand) {
-                if (plotUtils.distance([e.mapPoint.x, e.mapPoint.y], this.points[this.points.length - 1]) < constants.ZERO_TOLERANCE)
+        _nextClickHandler: function (e) {
+            if (!this._plot.freehand) {
+                if (plotUtils.distance([e.mapPoint.x, e.mapPoint.y], this._points[this._points.length - 1]) < constants.ZERO_TOLERANCE)
                     return;
             }
-            this.points.push([e.mapPoint.x, e.mapPoint.y]);
-            this.plot.setPoints(this.points);
-            if (this.plot.fixPointCount == this.plot.getPointCount()) {
-                this.mapDoubleClickHandler(e);
+            this._points.push([e.mapPoint.x, e.mapPoint.y]);
+            this._plot.setPoints(this._points);
+            if (this._plot.fixPointCount == this._plot.getPointCount()) {
+                this._doubleClickHandler(e);
                 return;
             }
-            if (this.plot && this.plot.freehand) {
-                this.mapDoubleClickHandler(e);
+            if (this._plot && this._plot.freehand) {
+                this._doubleClickHandler(e);
             }
-            this.graphic.setGeometry(this.generateGeometry());
+            this._graphic.setGeometry(this._generateGeometry());
         },
-        mapDoubleClickHandler: function (e) {
-            this.disconnectEventHandlers();
-            this.plot.finishDrawing();
-            this.drawEnd();
+        _doubleClickHandler: function (e) {
+            this.emit("draw-end", { geometry: this._generateGeometry(), plot: this._plot });
+            this.deactivate();
         },
-        disconnectEventHandlers: function () {
-            if (this.map_FirstClick)
-                this.map_FirstClick.remove();
-            if (this.map_NextClick)
-                this.map_NextClick.remove();
-            if (this.map_DoubleClick)
-                this.map_DoubleClick.remove();
-            if (this.map_MouseMove)
-                this.map_MouseMove.remove();
+        _mouseMoveHandler: function (e) {
+            if (plotUtils.distance([e.mapPoint.x, e.mapPoint.y], this._points[this._points.length - 1]) < constants.ZERO_TOLERANCE)
+                return;
+            if (!this._plot.freehand) {
+                var pnts = this._points.concat([[e.mapPoint.x, e.mapPoint.y]]);
+                this._plot.setPoints(pnts);
+            } else {
+                this._points.push([e.mapPoint.x, e.mapPoint.y]);
+                this._plot.setPoints(this._points);
+            }
+            this._graphic.setGeometry(this._generateGeometry());
         },
-        drawEnd: function () {
-            this.drawOverlay.remove(this.graphic);
-            this.activateMapTools();
-            this.disconnectEventHandlers();
-            this.map.removeLayer(this.drawOverlay);
-            this.emit("draw-end", this.generateGeometry());
-            this.points = [];
-            this.plot = null;
-            this.plotType = null;
-            this.plotParams = null;
-            this.graphic = null;
-        },
-        deactivateMapTools: function () {
-
-        },
-        activateMapTools: function () {
-
-        },
-        generateGeometry: function () {
+        _generateGeometry: function () {
             var geometry;
-            if (this.plot.geometryType === "point") {
-                geometry = new Point(this.plot.x, this.plot.y);
+            if (this._plot.geometryType === "point") {
+                geometry = new Point(this._plot.x, this._plot.y);
             }
-            else if (this.plot.geometryType === "polyline") {
-                geometry = new Polyline(this.plot.paths);
+            else if (this._plot.geometryType === "polyline") {
+                geometry = new Polyline(this._plot.paths);
             }
-            else if (this.plot.geometryType === "polygon") {
-                geometry = new Polygon(this.plot.paths);
+            else if (this._plot.geometryType === "polygon") {
+                geometry = new Polygon(this._plot.paths);
             }
-            geometry.spatialReference = this.map.spatialReference;
+            geometry.spatialReference = this._map.spatialReference;
             return geometry;
         },
-        generateSymbol: function () {
+        _generateSymbol: function () {
             var symbol;
-            if (this.plot.geometryType === "point") {
+            if (this._plot.geometryType === "point") {
                 symbol = this.markerSymbol;
             }
-            else if (this.plot.geometryType === "polyline") {
+            else if (this._plot.geometryType === "polyline") {
                 symbol = this.lineSymbol;
             }
-            else if (this.plot.geometryType === "polygon") {
+            else if (this._plot.geometryType === "polygon") {
                 symbol = this.fillSymbol;
             }
             return symbol;
         },
-        createPlot: function (type, points) {
+        _createPlot: function (type, points) {
             switch (type) {
                 case PlotDraw.ARC:
                     return new Arc(points);
@@ -215,17 +193,17 @@ define([
                 case PlotDraw.FREEHAND_POLYGON:
                     return new FreehandPolygon(points);
                 case PlotDraw.POLYGON:
-                    return new Polygon(points);
+                    return new PlotPolygon(points);
                 case PlotDraw.MARKER:
                     return new Marker(points);
                 case PlotDraw.RECTANGLE:
                     return new Rectangle(points);
                 case PlotDraw.POLYLINE:
-                    return new Polyline(points);
+                    return new PlotPolyline(points);
             }
         }
     });
-    var constants = {
+    var plotTypes = {
         ARC: "arc",
         ELLIPSE: "ellipse",
         CURVE: "curve",
@@ -250,6 +228,6 @@ define([
         MARKER: "marker",
         TRIANGLE: "triangle"
     };
-    lang.mixin(PlotDraw, constants);
+    lang.mixin(PlotDraw, plotTypes);
     return PlotDraw;
 });

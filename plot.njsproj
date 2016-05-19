@@ -59,6 +59,7 @@
     <Folder Include="src\plot\geometry\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="src\plot\domUtils.js" />
     <Compile Include="gulpfile.js" />
     <Compile Include="lib\goog\array.js" />
     <Compile Include="lib\goog\asserts.js" />
@@ -116,8 +117,6 @@
     <Content Include="src\plot\geometry\TailedSquadCombat.js" />
     <Content Include="src\plot\PlotDraw.js" />
     <Content Include="src\plot\PlotEdit.js" />
-    <Content Include="src\plot\domUtils.js" />
-    <Content Include="src\plot\utils.js" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />

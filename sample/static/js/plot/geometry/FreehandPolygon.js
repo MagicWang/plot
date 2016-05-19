@@ -14,7 +14,7 @@ define([
             if (count < 2) {
                 return;
             }
-            this.paths = this.points;
+            this.paths = this.points.concat([this.points[0]]);
         }
     });
 });

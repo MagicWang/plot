@@ -34,7 +34,7 @@ define([
             var neckLeft = plotUtils.getThirdPoint(pnt1, pnt2, this.neckAngle, neckWidth, false);
             var neckRight = plotUtils.getThirdPoint(pnt1, pnt2, this.neckAngle, neckWidth, true);
             var pList = [tailLeft, neckLeft, headLeft, pnt2, headRight, neckRight, tailRight];
-            this.paths = pList;
+            this.paths = pList.concat([pList[0]]);
         }
     });
 });
