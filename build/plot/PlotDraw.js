@@ -77,12 +77,12 @@ define([
         },
         isDrawing: this._plotType != null,
         _firstClickHandler: function (e) {
+            this._firstClick_Connect.remove();
             this._points.push([e.mapPoint.x, e.mapPoint.y]);
             this._plot = this._createPlot(this._plotType, this._points, this._plotParams);
             this._graphic = new Graphic();
             this._graphic.setSymbol(this._generateSymbol());
             this._map.graphics.add(this._graphic);
-            this._firstClick_Connect.remove();
             //
             if (this._plot.fixPointCount == this._plot.getPointCount()) {
                 this._doubleClickHandler(e);

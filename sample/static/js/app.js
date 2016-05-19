@@ -15,7 +15,7 @@
  *
  * */
 
-var map, plotDraw, plotEdit, drawOverlay, markerSymbol, lineSymbol, fillSymbol;
+var map, plotDraw, plotEdit, editGraphic, markerSymbol, lineSymbol, fillSymbol;
 // 初始化地图，底图使用openstreetmap在线地图
 require(["esri/map",
     "esri/layers/GraphicsLayer",
@@ -45,28 +45,28 @@ require(["esri/map",
          plotDraw.on("draw-end", onDrawEnd);
          // 初始化标绘编辑工具
          plotEdit = new PlotEdit(map);
-         map.on("load", function () {
-             map.graphics.on("click", function (e) {
-                 if (plotDraw.isDrawing)
-                     return;
-                 if (e.graphic) {
-                     // 开始编辑
-                     plotEdit.activate(e.graphic);
-                     activeDelBtn();
-                 } else {
-                     // 结束编辑
-                     plotEdit.deactivate();
-                     deactiveDelBtn();
-                 }
-             });
+         map.on("click", function (e) {
+             if (plotDraw.isDrawing)
+                 return;
+             if (e.graphic && e.graphic.plot) {
+                 // 开始编辑
+                 editGraphic = e.graphic;
+                 plotEdit.activate(e.graphic);
+                 activeDelBtn();
+             } else {
+                 // 结束编辑
+                 editGraphic = null;
+                 plotEdit.deactivate();
+                 deactiveDelBtn();
+             }
          });
          initEvents();
      });
 function initEvents() {
     require(["dojo/dom"], function (dom) {
         dom.byId("btn-delete").onclick = function () {
-            if (plotEdit && plotEdit.graphic) {
-                map.graphics.remove(plotEdit.graphic);
+            if (plotEdit && editGraphic) {
+                map.graphics.remove(editGraphic);
                 plotEdit.deactivate();
                 deactiveDelBtn();
             }

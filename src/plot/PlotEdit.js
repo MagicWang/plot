@@ -28,11 +28,11 @@ define([
             this._layerMouseOverHandler = lang.hitch(this, this._layerMouseOverHandler);
             this._layerMouseOutHandler = lang.hitch(this, this._layerMouseOutHandler);
             this._layerMouseDownHandler = lang.hitch(this, this._layerMouseDownHandler);
-            this._layerMouseMoveHandler = lang.hitch(this, this._layerMouseMoveHandler);
-            this._layerMouseUpHandler = lang.hitch(this, this._layerMouseUpHandler);
+            this._layerMouseDragHandler = lang.hitch(this, this._layerMouseDragHandler);
+            this._layerMouseDragEndHandler = lang.hitch(this, this._layerMouseDragEndHandler);
             this._controlPointLayerMouseDownHandler = lang.hitch(this, this._controlPointLayerMouseDownHandler);
-            this._controlPointLayerMouseMoveHandler = lang.hitch(this, this._controlPointLayerMouseMoveHandler);
-            this._controlPointLayerMouseUpHandler = lang.hitch(this, this._controlPointLayerMouseUpHandler);
+            this._controlPointLayerMouseDragHandler = lang.hitch(this, this._controlPointLayerMouseDragHandler);
+            this._controlPointLayerMouseDragEndHandler = lang.hitch(this, this._controlPointLayerMouseDragEndHandler);
         },
         activate: function (graphic) {
             if (!graphic || !graphic.plot || !graphic.plot.isPlot() || graphic == this._graphic) {
@@ -55,16 +55,16 @@ define([
                 this._layerMouseOut_Connect.remove();
             if (this._layerMouseDown_Connect)
                 this._layerMouseDown_Connect.remove();
-            if (this._layerMouseMove_Connect)
-                this._layerMouseMove_Connect.remove();
-            if (this._layerMouseUp_Connect)
-                this._layerMouseUp_Connect.remove();
+            if (this._layerMouseDrag_Connect)
+                this._layerMouseDrag_Connect.remove();
+            if (this._layerMouseDragEnd_Connect)
+                this._layerMouseDragEnd_Connect.remove();
             if (this._controlPointLayerMouseDown_Connect)
                 this._controlPointLayerMouseDown_Connect.remove();
-            if (this._controlPointLayerMouseMove_Connect)
-                this._controlPointLayerMouseMove_Connect.remove();
-            if (this._controlPointLayerMouseUp_Connect)
-                this._controlPointLayerMouseUp_Connect.remove();
+            if (this._controlPointLayerMouseDrag_Connect)
+                this._controlPointLayerMouseDrag_Connect.remove();
+            if (this._controlPointLayerMouseDragEnd_Connect)
+                this._controlPointLayerMouseDragEnd_Connect.remove();
         },
         _initControlPoints: function () {
             if (!this._map) {
@@ -94,11 +94,12 @@ define([
         _controlPointLayerMouseDownHandler: function (e) {
             if (this._controlPointGraphics && this._controlPointGraphics.indexOf(e.graphic) >= 0) {
                 this._activeControlPointGraphic = e.graphic;
-                this._controlPointLayerMouseMove_Connect = this._map.graphics.on("mouse-move", this._controlPointLayerMouseMoveHandler);
-                this._controlPointLayerMouseUp_Connect = this._map.graphics.on("mouse-up", this._controlPointLayerMouseUpHandler);
+                this._map.disablePan();
+                this._controlPointLayerMouseDrag_Connect = this._map.on("mouse-drag", this._controlPointLayerMouseDragHandler);
+                this._controlPointLayerMouseDragEnd_Connect = this._map.on("mouse-drag-end", this._controlPointLayerMouseDragEndHandler);
             }
         },
-        _controlPointLayerMouseMoveHandler: function (e) {
+        _controlPointLayerMouseDragHandler: function (e) {
             if (this._activeControlPointGraphic) {
                 this._activeControlPointGraphic.setGeometry(e.mapPoint);
                 var index = this._controlPointGraphics.indexOf(this._activeControlPointGraphic);
@@ -106,15 +107,17 @@ define([
                 this._graphic.setGeometry(this._generateGeometry(this._graphic.plot));
             }
         },
-        _controlPointLayerMouseUpHandler: function (e) {
+        _controlPointLayerMouseDragEndHandler: function (e) {
             this._activeControlPointGraphic = null;
-            this._controlPointLayerMouseDown_Connect.remove();
-            this._controlPointLayerMouseMove_Connect.remove();
-            this._controlPointLayerMouseUp_Connect.remove();
+            this._map.enablePan();
+            this._controlPointLayerMouseDrag_Connect.remove();
+            this._controlPointLayerMouseDragEnd_Connect.remove();
         },
         _layerMouseOverHandler: function (e) {
             if (this._graphic && this._graphic == e.graphic) {
                 this._map.setMapCursor("move");
+                if (this._layerMouseDown_Connect)
+                    this._layerMouseDown_Connect.remove();
                 this._layerMouseDown_Connect = this._graphic.getLayer().on("mouse-down", this._layerMouseDownHandler);
             }
         },
@@ -125,11 +128,11 @@ define([
         },
         _layerMouseDownHandler: function (e) {
             this._startPoint = e.mapPoint;
-            //this._map.disablePan();
-            this._layerMouseMove_Connect = this._graphic.getLayer().on('mouse-move', this._layerMouseMoveHandler);
-            this._layerMouseUp_Connect = this._graphic.getLayer().on('mouse-up', this._layerMouseUpHandler);
+            this._map.disablePan();
+            this._layerMouseDrag_Connect = this._map.on('mouse-drag', this._layerMouseDragHandler);
+            this._layerMouseDragEnd_Connect = this._map.on('mouse-drag-end', this._layerMouseDragEndHandler);
         },
-        _layerMouseMoveHandler: function (e) {
+        _layerMouseDragHandler: function (e) {
             if (this._activeControlPointGraphic)
                 return;
             var dx = e.mapPoint.x - this._startPoint.x;
@@ -147,11 +150,11 @@ define([
             this._graphic.plot.setPoints(newPoints);
             this._graphic.setGeometry(this._generateGeometry(this._graphic.plot));
         },
-        _layerMouseUpHandler: function (e) {
-            //this._map.enablePan();
+        _layerMouseDragEndHandler: function (e) {
+            this._map.enablePan();
             this._layerMouseDown_Connect.remove();
-            this._layerMouseMove_Connect.remove();
-            this._layerMouseUp_Connect.remove();
+            this._layerMouseDrag_Connect.remove();
+            this._layerMouseDragEnd_Connect.remove();
         },
         _getControlPoints: function () {
             if (!this._graphic) {
