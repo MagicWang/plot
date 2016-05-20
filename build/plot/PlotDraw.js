@@ -81,7 +81,7 @@ define([
             this._points.push([e.mapPoint.x, e.mapPoint.y]);
             this._plot = this._createPlot(this._plotType, this._points, this._plotParams);
             this._graphic = new Graphic();
-            this._graphic.setSymbol(this._generateSymbol());
+            this._graphic.setSymbol(this._generateSymbol(this._plot));
             this._map.graphics.add(this._graphic);
             //
             if (this._plot.fixPointCount == this._plot.getPointCount()) {
@@ -109,10 +109,10 @@ define([
             if (this._plot && this._plot.freehand) {
                 this._doubleClickHandler(e);
             }
-            this._graphic.setGeometry(this._generateGeometry());
+            this._graphic.setGeometry(this._generateGeometry(this._plot));
         },
         _doubleClickHandler: function (e) {
-            this.emit("draw-end", { geometry: this._generateGeometry(), plot: this._plot });
+            this.emit("draw-end", { geometry: this._generateGeometry(this._plot), plot: this._plot });
             this.deactivate();
         },
         _mouseMoveHandler: function (e) {
@@ -125,31 +125,31 @@ define([
                 this._points.push([e.mapPoint.x, e.mapPoint.y]);
                 this._plot.setPoints(this._points);
             }
-            this._graphic.setGeometry(this._generateGeometry());
+            this._graphic.setGeometry(this._generateGeometry(this._plot));
         },
-        _generateGeometry: function () {
+        _generateGeometry: function (plot) {
             var geometry;
-            if (this._plot.geometryType === "point") {
-                geometry = new Point(this._plot.x, this._plot.y);
+            if (plot.type === "point") {
+                geometry = new Point(plot.x, plot.y);
             }
-            else if (this._plot.geometryType === "polyline") {
-                geometry = new Polyline(this._plot.paths);
+            else if (plot.type === "polyline") {
+                geometry = new Polyline(plot.paths);
             }
-            else if (this._plot.geometryType === "polygon") {
-                geometry = new Polygon(this._plot.paths);
+            else if (plot.type === "polygon") {
+                geometry = new Polygon(plot.paths);
             }
             geometry.spatialReference = this._map.spatialReference;
             return geometry;
         },
-        _generateSymbol: function () {
+        _generateSymbol: function (plot) {
             var symbol;
-            if (this._plot.geometryType === "point") {
+            if (plot.type === "point") {
                 symbol = this.markerSymbol;
             }
-            else if (this._plot.geometryType === "polyline") {
+            else if (plot.type === "polyline") {
                 symbol = this.lineSymbol;
             }
-            else if (this._plot.geometryType === "polygon") {
+            else if (plot.type === "polygon") {
                 symbol = this.fillSymbol;
             }
             return symbol;

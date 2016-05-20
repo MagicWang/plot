@@ -59,7 +59,6 @@
     <Folder Include="src\plot\geometry\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\plot\domUtils.js" />
     <Compile Include="gulpfile.js" />
     <Compile Include="lib\goog\array.js" />
     <Compile Include="lib\goog\asserts.js" />

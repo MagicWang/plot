@@ -5,7 +5,7 @@ define([
 ], function (declare, plotUtils, Geometry) {
     return declare([Geometry], {
         constructor: function (points) {
-            this.geometryType = "polyline";
+            this.type = "polyline";
             this.fixPointCount = 2;
             this.maxArrowLength = 3000000;
             this.arrowLengthScale = 5;

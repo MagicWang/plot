@@ -5,7 +5,7 @@ define([
 ], function (declare, plotUtils, AttackArrow) {
     return declare([AttackArrow], {
         constructor: function (points) {
-            this.geometryType = "polygon";
+            this.type = "polygon";
             this.headHeightFactor = 0.18;
             this.headWidthFactor = 0.3;
             this.neckHeightFactor = 0.85;

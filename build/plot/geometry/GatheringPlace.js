@@ -6,7 +6,7 @@ define([
 ], function (declare, constants, plotUtils, Geometry) {
     return declare([Geometry], {
         constructor: function (points) {
-            this.geometryType = "polygon";
+            this.type = "polygon";
             this.t = 0.4;
             this.fixPointCount = 3;
             this.setPoints(points);

@@ -5,7 +5,6 @@ define([
     "dojo/Evented",
     "./constants",
     "./plotUtils",
-    "./domUtils",
     "esri/geometry/Point",
     "esri/geometry/Polyline",
     "esri/geometry/Polygon",
@@ -13,7 +12,7 @@ define([
     "esri/Color",
     "esri/symbols/SimpleMarkerSymbol",
     "esri/symbols/SimpleLineSymbol"
-], function (declare, lang, dom, Evented, constants, plotUtils, domUtils, Point, Polyline, Polygon, Graphic, Color, SimpleMarkerSymbol, SimpleLineSymbol) {
+], function (declare, lang, dom, Evented, constants, plotUtils, Point, Polyline, Polygon, Graphic, Color, SimpleMarkerSymbol, SimpleLineSymbol) {
     var PlotEdit = declare([Evented], {
         constructor: function (map) {
             if (!map)
@@ -35,7 +34,7 @@ define([
             this._controlPointLayerMouseDragEndHandler = lang.hitch(this, this._controlPointLayerMouseDragEndHandler);
         },
         activate: function (graphic) {
-            if (!graphic || !graphic.plot || !graphic.plot.isPlot() || graphic == this._graphic) {
+            if (!graphic || !graphic.plot || graphic == this._graphic) {
                 return;
             }
             this.deactivate();
@@ -165,13 +164,13 @@ define([
         },
         _generateGeometry: function (plot) {
             var geometry;
-            if (plot.geometryType === "point") {
+            if (plot.type === "point") {
                 geometry = new Point(plot.x, plot.y);
             }
-            else if (plot.geometryType === "polyline") {
+            else if (plot.type === "polyline") {
                 geometry = new Polyline(plot.paths);
             }
-            else if (plot.geometryType === "polygon") {
+            else if (plot.type === "polygon") {
                 geometry = new Polygon(plot.paths);
             }
             geometry.spatialReference = this._map.spatialReference;

@@ -4,7 +4,7 @@ define([
 ], function (declare, FineArrow) {
     return declare([FineArrow], {
         constructor: function (points) {
-            this.geometryType = "polygon";
+            this.type = "polygon";
             this.tailWidthFactor = 0.2;
             this.neckWidthFactor = 0.25;
             this.headWidthFactor = 0.3;
