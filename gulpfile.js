@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var amdOptimize = require("amd-optimize");
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var notify = require('gulp-notify');
@@ -68,11 +69,12 @@ gulp.task('compact-goog-debug', function () {
 });
 gulp.task('compact-js', function () {
     return gulp.src(['./src/**/*.js'])
-       .pipe(concat('plot.js'))
+       //.pipe(amdOptimize("PlotDraw"))
+       //.pipe(concat('plot.js'))
        .pipe(uglify())
        .pipe(gulp.dest('./build/'))
        .pipe(gulp.dest('./sample/static/js'))
-       .pipe(notify({ message: 'compact-js task complete' }));
+       //.pipe(notify({ message: 'compact-js task complete' }));
 });
 
 gulp.task('compact-js-debug', function () {
@@ -101,4 +103,4 @@ gulp.task('watch', function () {
         console.log('File ' + e.path + ' was ' + e.type + ', running compact css ...');
     });
 });
-gulp.task('default', ['compact-js-debug', 'compact-css', 'watch']);
+gulp.task('default', ['compact-js', 'compact-js-debug', 'compact-css', 'watch']);

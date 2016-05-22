@@ -1,0 +1,21 @@
+{
+  "name": "plot",
+  "author": "wj",
+  "description": "基于Arcgis 实现动态标绘API。",
+  "version": "1.0.0",
+  "keywords": [
+    "plot",
+    "arcgis",
+    "js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MagicWang/plot.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MagicWang/plot/issues"
+  },
+  "homepage": "https://github.com/MagicWang/plot#readme",
+  "dojoBuild": "plot.profile.js"
+}

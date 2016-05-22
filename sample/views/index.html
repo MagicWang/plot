@@ -4,19 +4,23 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>arcgis for javascript plot V1.0.0</title>
     <link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/css/esri.css">
-    <!--<link rel="stylesheet" href="http://192.168.0.2/arcgis_js_api/library/3.15/esri/css/esri.css">-->
-    <link rel="stylesheet" href="css/plot.css">
+    <!--<link rel="stylesheet" href="http://192.168.0.2/arcgis_js_api/library/3.16/esri/css/esri.css">-->
     <link rel="stylesheet" href="css/defaults.css">
     <script>
         var dojoConfig = {
             packages: [{
                 name: "plot",
                 location: "/js/plot"
-            }]
+            }],
+            async: true,
+            deps: ["plot/plot"],
+            callback: function () {
+                init();
+            }
         };
     </script>
     <script src="https://js.arcgis.com/3.16/"></script>
-    <!--<script src="http://192.168.0.2/arcgis_js_api/library/3.15/init.js"></script>-->
+    <!--<script src="http://192.168.0.2/arcgis_js_api/library/3.16/init.js"></script>-->
     <script src="js/app.js"></script>
 </head>
 <body>

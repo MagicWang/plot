@@ -2,6 +2,8 @@
   "name": "plot",
   "author": "wj",
   "devDependencies": {
+    "amd-deploy": "^1.0.31",
+    "amd-optimize": "^0.6.1",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-cssnano": "^2.1.2",
@@ -32,5 +34,6 @@
   "bugs": {
     "url": "https://github.com/MagicWang/plot/issues"
   },
-  "homepage": "https://github.com/MagicWang/plot#readme"
+  "homepage": "https://github.com/MagicWang/plot#readme",
+  "dojoBuild": "plot.profile.js"
 }

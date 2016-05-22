@@ -34,13 +34,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
-    <Content Include="build\plot.css" />
+    <Content Include="build.bat" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="sample\package.json" />
     <Content Include="sample\static\assets\pencil.png" />
     <Content Include="sample\static\css\defaults.css" />
-    <Content Include="src\plot.css" />
     <Content Include="sample\views\index.html" />
   </ItemGroup>
   <ItemGroup>
@@ -53,10 +52,11 @@
     <Folder Include="sample\static\assets\" />
     <Folder Include="sample\static\css\" />
     <Folder Include="sample\static\js\" />
+    <Folder Include="sample\static\js\plot\" />
     <Folder Include="sample\views\" />
     <Folder Include="src\" />
-    <Folder Include="src\plot\" />
     <Folder Include="src\plot\geometry\" />
+    <Folder Include="src\plot\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="plot.profile.js" />
@@ -85,6 +85,9 @@
     <Compile Include="lib\goog\string.js" />
     <Compile Include="lib\goog\useragent.js" />
     <Compile Include="lib\goog\util.js" />
+    <Content Include="sample\static\js\plot\plot.js" />
+    <Content Include="src\plot\package.json" />
+    <Content Include="src\plot\plot.profile.js" />
     <Content Include="sample\app.js" />
     <Compile Include="sample\routes\index.js" />
     <Content Include="sample\static\js\app.js" />
