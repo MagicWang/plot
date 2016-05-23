@@ -2,9 +2,9 @@ define([
     "dojo/_base/declare",
     "../constants",
     "../plotUtils",
-    "./Geometry"
-], function (declare, constants, plotUtils, Geometry) {
-    return declare([Geometry], {
+    "./PlotGeometry"
+], function (declare, constants, plotUtils, PlotGeometry) {
+    return declare([PlotGeometry], {
         constructor: function (points) {
             this.type = "polygon";
             this.fixPointCount = 2;
@@ -20,7 +20,7 @@ define([
             var center = plotUtils.mid(pnt1, pnt2);
             var majorRadius = Math.abs((pnt1[0] - pnt2[0]) / 2);
             var minorRadius = Math.abs((pnt1[1] - pnt2[1]) / 2);
-            this.paths = this.generatePoints(center, majorRadius, minorRadius);
+            this.rings = this.generatePoints(center, majorRadius, minorRadius);
         },
         generatePoints: function (center, majorRadius, minorRadius) {
             var x, y, angle, points = [];

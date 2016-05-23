@@ -2,9 +2,9 @@ define([
     "dojo/_base/declare",
     "../constants",
     "../plotUtils",
-    "./Geometry"
-], function (declare, constants, plotUtils, Geometry) {
-    return declare([Geometry], {
+    "./PlotGeometry"
+], function (declare, constants, plotUtils, PlotGeometry) {
+    return declare([PlotGeometry], {
         constructor: function (points) {
             this.type = "polygon";
             this.headHeightFactor = 0.18;
@@ -19,7 +19,7 @@ define([
                 return;
             }
             if (this.getPointCount() == 2) {
-                this.paths = this.points;
+                this.rings = this.points;
                 return;
             }
             var pnts = this.getPoints();
@@ -49,7 +49,7 @@ define([
             leftPnts = plotUtils.getQBSplinePoints(leftPnts);
             rightPnts = plotUtils.getQBSplinePoints(rightPnts);
             var pList = leftPnts.concat(headPnts, rightPnts.reverse());
-            this.paths = pList.concat([pList[0]]);
+            this.rings = pList.concat([pList[0]]);
         },
         getArrowHeadPoints: function (points, tailLeft, tailRight) {
             var len = plotUtils.getBaseLength(points);

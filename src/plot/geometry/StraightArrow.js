@@ -1,11 +1,11 @@
 define([
     "dojo/_base/declare",
     "../plotUtils",
-    "./Geometry"
-], function (declare, plotUtils, Geometry) {
-    return declare([Geometry], {
+    "./PlotGeometry"
+], function (declare, plotUtils, PlotGeometry) {
+    return declare([PlotGeometry], {
         constructor: function (points) {
-            this.type = "polyline";
+            this.type = "polygon";
             this.fixPointCount = 2;
             this.maxArrowLength = 3000000;
             this.arrowLengthScale = 5;
@@ -23,7 +23,7 @@ define([
             len = len > this.maxArrowLength ? this.maxArrowLength : len;
             var leftPnt = plotUtils.getThirdPoint(pnt1, pnt2, Math.PI / 6, len, false);
             var rightPnt = plotUtils.getThirdPoint(pnt1, pnt2, Math.PI / 6, len, true);
-            this.paths = [pnt1, pnt2, leftPnt, pnt2, rightPnt];
+            this.rings = [pnt1, pnt2, leftPnt, pnt2, rightPnt];
         }
     });
 });

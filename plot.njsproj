@@ -109,7 +109,7 @@
     <Content Include="src\plot\geometry\GatheringPlace.js" />
     <Content Include="src\plot\geometry\Lune.js" />
     <Content Include="src\plot\geometry\Marker.js" />
-    <Content Include="src\plot\geometry\Geometry.js" />
+    <Content Include="src\plot\geometry\PlotGeometry.js" />
     <Content Include="src\plot\geometry\Polygon.js" />
     <Content Include="src\plot\geometry\Polyline.js" />
     <Content Include="src\plot\geometry\Rectangle.js" />

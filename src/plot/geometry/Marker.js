@@ -1,9 +1,9 @@
 define([
     "dojo/_base/declare",
     "../plotUtils",
-    "./Geometry"
-], function (declare, plotUtils, Geometry) {
-    return declare([Geometry], {
+    "./PlotGeometry"
+], function (declare, plotUtils, PlotGeometry) {
+    return declare([PlotGeometry], {
         constructor: function (points) {
             this.type = "point";
             this.fixPointCount = 1;

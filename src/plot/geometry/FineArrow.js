@@ -2,9 +2,9 @@ define([
     "dojo/_base/declare",
     "../constants",
     "../plotUtils",
-    "./Geometry"
-], function (declare, constants, plotUtils, Geometry) {
-    return declare([Geometry], {
+    "./PlotGeometry"
+], function (declare, constants, plotUtils, PlotGeometry) {
+    return declare([PlotGeometry], {
         constructor: function (points) {
             this.type = "polygon";
             this.tailWidthFactor = 0.15;
@@ -34,7 +34,7 @@ define([
             var neckLeft = plotUtils.getThirdPoint(pnt1, pnt2, this.neckAngle, neckWidth, false);
             var neckRight = plotUtils.getThirdPoint(pnt1, pnt2, this.neckAngle, neckWidth, true);
             var pList = [tailLeft, neckLeft, headLeft, pnt2, headRight, neckRight, tailRight];
-            this.paths = pList.concat([pList[0]]);
+            this.rings = pList.concat([pList[0]]);
         }
     });
 });

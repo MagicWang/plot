@@ -2,9 +2,9 @@ define([
     "dojo/_base/declare",
     "../constants",
     "../plotUtils",
-    "./Geometry"
-], function (declare, constants, plotUtils, Geometry) {
-    return declare([Geometry], {
+    "./PlotGeometry"
+], function (declare, constants, plotUtils, PlotGeometry) {
+    return declare([PlotGeometry], {
         constructor: function (points) {
             this.type = "polygon";
             this.fixPointCount = 3;
@@ -39,7 +39,7 @@ define([
             }
             var pnts = plotUtils.getArcPoints(center, radius, startAngle, endAngle);
             pnts.push(pnts[0]);
-            this.paths = pnts;
+            this.rings = pnts;
         }
     });
 });

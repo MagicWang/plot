@@ -171,7 +171,7 @@ define([
                 geometry = new Polyline(plot.paths);
             }
             else if (plot.type === "polygon") {
-                geometry = new Polygon(plot.paths);
+                geometry = new Polygon(plot.rings);
             }
             geometry.spatialReference = this._map.spatialReference;
             return geometry;

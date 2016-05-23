@@ -1,9 +1,9 @@
 define([
     "dojo/_base/declare",
     "../plotUtils",
-    "./Geometry"
-], function (declare, plotUtils, Geometry) {
-    return declare([Geometry], {
+    "./PlotGeometry"
+], function (declare, plotUtils, PlotGeometry) {
+    return declare([PlotGeometry], {
         constructor: function (points) {
             this.type = "polygon";
             this.setPoints(points);
@@ -13,7 +13,7 @@ define([
             if (count < 2) {
                 return;
             }
-            this.paths = this.points.concat([this.points[0]]);
+            this.rings = this.points.concat([this.points[0]]);
         }
     });
 });

@@ -22,7 +22,7 @@ define([
                 return;
             }
             if (this.getPointCount() == 2) {
-                this.paths = this.points;
+                this.rings = this.points;
                 return;
             }
             var pnts = this.getPoints();
@@ -51,7 +51,7 @@ define([
 
             leftPnts = plotUtils.getQBSplinePoints(leftPnts);
             rightPnts = plotUtils.getQBSplinePoints(rightPnts);
-            this.paths = leftPnts.concat(headPnts, rightPnts.reverse(), [this.swallowTailPnt, leftPnts[0]]);
+            this.rings = leftPnts.concat(headPnts, rightPnts.reverse(), [this.swallowTailPnt, leftPnts[0]]);
         }
     });
 });

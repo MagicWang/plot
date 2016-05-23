@@ -34,7 +34,7 @@ define([
             leftPnts = plotUtils.getQBSplinePoints(leftPnts);
             rightPnts = plotUtils.getQBSplinePoints(rightPnts);
             var pList  = leftPnts.concat(headPnts, rightPnts.reverse());
-            this.paths = pList.concat([pList[0]]);
+            this.rings = pList.concat([pList[0]]);
         },
         getTailPoints: function (points) {
             var allLen = plotUtils.getBaseLength(points);

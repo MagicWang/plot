@@ -2,9 +2,9 @@ define([
     "dojo/_base/declare",
     "../constants",
     "../plotUtils",
-    "./Geometry"
-], function (declare, constants, plotUtils, Geometry) {
-    return declare([Geometry], {
+    "./PlotGeometry"
+], function (declare, constants, plotUtils, PlotGeometry) {
+    return declare([PlotGeometry], {
         constructor: function (points) {
             this.type = "polygon";
             this.headHeightFactor = 0.25;
@@ -22,7 +22,7 @@ define([
                 return;
             }
             if (count == 2) {
-                this.paths = this.points;
+                this.rings = this.points;
                 return;
             }
             var pnt1 = this.points[0];
@@ -61,7 +61,7 @@ define([
             lrBodyPnts = plotUtils.getBezierPoints(lrBodyPnts);
 
             var pnts = rlBodyPnts.concat(rArrowPnts, bodyPnts, lArrowPnts, lrBodyPnts);
-            this.paths = pnts.concat([pnts[0]]);
+            this.rings = pnts.concat([pnts[0]]);
         },
         finishDrawing: function () {
             if (this.getPointCount() == 3 && this.tempPoint4 != null)
