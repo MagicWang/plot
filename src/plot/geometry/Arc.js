@@ -6,6 +6,7 @@ define([
     return declare([PlotGeometry], {
         constructor: function (points) {
             this.type = "polyline";
+            this.plotType = "arc";
             this.fixPointCount = 3;
             this.setPoints(points);
         },

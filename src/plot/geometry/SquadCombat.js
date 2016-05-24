@@ -7,6 +7,7 @@ define([
     return declare([AttackArrow], {
         constructor: function (points) {
             this.type = "polygon";
+            this.plotType = "squadcombat";
             this.headHeightFactor = 0.18;
             this.headWidthFactor = 0.3;
             this.neckHeightFactor = 0.85;

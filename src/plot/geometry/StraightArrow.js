@@ -6,6 +6,7 @@ define([
     return declare([PlotGeometry], {
         constructor: function (points) {
             this.type = "polygon";
+            this.plotType = "straightarrow";
             this.fixPointCount = 2;
             this.maxArrowLength = 3000000;
             this.arrowLengthScale = 5;

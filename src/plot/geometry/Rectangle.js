@@ -6,6 +6,7 @@ define([
     return declare([PlotGeometry], {
         constructor: function (points) {
             this.type = "polygon";
+            this.plotType = "rectangle";
             this.fixPointCount = 2;
             this.setPoints(points);
         },

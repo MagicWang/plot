@@ -31,13 +31,14 @@ function initEvents() {
         plotDraw.on("draw-end", onDrawEnd);
         // 初始化标绘编辑工具
         plotEdit = new PlotEdit(map);
+        plotEdit.on("edit-end", onEditEnd);
         map.on("click", function (e) {
             if (plotDraw.isDrawing)
                 return;
             if (e.graphic && e.graphic.plot) {
                 // 开始编辑
                 editGraphic = e.graphic;
-                plotEdit.activate(e.graphic);
+                plotEdit.activate(editGraphic);
                 activeDelBtn();
             } else {
                 // 结束编辑
@@ -62,7 +63,7 @@ function initEvents() {
         };
     });
 }
-// 绘制结束后，添加到FeatureOverlay显示。
+// 绘制结束后，添加到GraphicsLayer显示，可能需要保存。
 function onDrawEnd(evt) {
     require(["esri/graphic",
         "esri/geometry/Point",
@@ -82,11 +83,16 @@ function onDrawEnd(evt) {
          graphic.plot = evt.plot;
          map.graphics.add(graphic);
          // 开始编辑
-         plotEdit.activate(graphic);
+         editGraphic = graphic;
+         plotEdit.activate(editGraphic);
          activeDelBtn();
+         saveToDB(graphic);
      });
 };
-
+//编辑结束后，可能需要保存。
+function onEditEnd(evt) {
+    saveToDB(evt.graphic);
+};
 // 指定标绘类型，开始绘制。
 function activate(type) {
     plotEdit.deactivate();
@@ -103,4 +109,8 @@ function deactiveDelBtn() {
     require(["dojo/dom"], function (dom) {
         dom.byId("btn-delete").style.display = 'none';
     });
+}
+function saveToDB(graphic) {
+    var plot = graphic.plot.toJson();
+    var symbol = graphic.symbol.toJson();
 }

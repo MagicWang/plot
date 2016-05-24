@@ -6,6 +6,7 @@ define([
     return declare([PlotGeometry], {
         constructor: function (points) {
             this.type = "point";
+            this.plotType = "marker";
             this.fixPointCount = 1;
             this.setPoints(points);
         },

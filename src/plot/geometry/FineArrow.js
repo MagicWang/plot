@@ -7,6 +7,7 @@ define([
     return declare([PlotGeometry], {
         constructor: function (points) {
             this.type = "polygon";
+            this.plotType = "finearrow";
             this.tailWidthFactor = 0.15;
             this.neckWidthFactor = 0.2;
             this.headWidthFactor = 0.25;

@@ -44,6 +44,8 @@ define([
             this._layerMouseOut_Connect = this._graphic.getLayer().on("mouse-out", this._layerMouseOutHandler);
         },
         deactivate: function () {
+            if (this._graphic)
+                this.emit("edit-end", { graphic: this._graphic });
             this._graphic = null;
             this._clearControlPoints();
             this._activeControlPointGraphic = null;

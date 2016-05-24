@@ -4,6 +4,7 @@ define([
     return declare(null, {
         constructor: function (points) {
             this.type = null;//µã¡¢Ïß¡¢Ãæ
+            this.plotType = null;
             this.setPoints(points);
         },
         setPoints: function (value) {
@@ -25,6 +26,9 @@ define([
             }
         },
         generate: function () {
+        },
+        toJson: function () {
+            return { "plotType": this.plotType, "points": this.points };
         }
     });
 });

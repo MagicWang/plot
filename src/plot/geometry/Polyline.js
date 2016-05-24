@@ -6,6 +6,7 @@ define([
     return declare([PlotGeometry], {
         constructor: function (points) {
             this.type = "polyline";
+            this.plotType = "polyline";
             this.setPoints(points);
         },
         generate: function () {

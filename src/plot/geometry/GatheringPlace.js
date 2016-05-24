@@ -7,6 +7,7 @@ define([
     return declare([PlotGeometry], {
         constructor: function (points) {
             this.type = "polygon";
+            this.plotType = "gatheringplace";
             this.t = 0.4;
             this.fixPointCount = 3;
             this.setPoints(points);

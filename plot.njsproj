@@ -92,8 +92,6 @@
     <Compile Include="sample\routes\index.js" />
     <Content Include="sample\static\js\app.js" />
     <Content Include="src\plot\constants.js" />
-    <Content Include="src\plot\PlotDecoder.js" />
-    <Content Include="src\plot\PlotEncoder.js" />
     <Content Include="src\plot\plotUtils.js" />
     <Content Include="src\plot\geometry\Arc.js" />
     <Content Include="src\plot\geometry\AssaultDirection.js" />

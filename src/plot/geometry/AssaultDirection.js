@@ -5,6 +5,7 @@ define([
     return declare([FineArrow], {
         constructor: function (points) {
             this.type = "polygon";
+            this.plotType = "assaultdirection";
             this.tailWidthFactor = 0.2;
             this.neckWidthFactor = 0.25;
             this.headWidthFactor = 0.3;

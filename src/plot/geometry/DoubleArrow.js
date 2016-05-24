@@ -7,6 +7,7 @@ define([
     return declare([PlotGeometry], {
         constructor: function (points) {
             this.type = "polygon";
+            this.plotType = "doublearrow";
             this.headHeightFactor = 0.25;
             this.headWidthFactor = 0.3;
             this.neckHeightFactor = 0.85;
