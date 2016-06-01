@@ -25,7 +25,7 @@ var map, plotDraw, plotEdit, editGraphic, markerSymbol, lineSymbol, fillSymbol;
              });
 })();
 function initEvents() {
-    require(["dojo/dom", "plot/PlotDraw", "plot/PlotEdit"], function (dom, PlotDraw, PlotEdit) {
+    require(["dojo/dom", "plot/PlotDraw", "plot/PlotEdit", "plot/dijit/PlotToolbar"], function (dom, PlotDraw, PlotEdit, PlotToolbar) {
         // 初始化标绘绘制工具，添加绘制结束事件响应
         plotDraw = new PlotDraw(map);
         plotDraw.on("draw-end", onDrawEnd);
@@ -54,13 +54,16 @@ function initEvents() {
                 deactiveDelBtn();
             }
         };
-        dom.byId("menu").onclick = function (evt) {
-            if (evt.target.id === "menu") {
-                return;
-            }
-            var tool = evt.target.id.toLowerCase();
-            activate(tool);
-        };
+        var toolbar = new PlotToolbar();
+        toolbar.startup();
+        toolbar.placeAt("mapDiv");
+        //dom.byId("menu").onclick = function (evt) {
+        //    if (evt.target.id === "menu") {
+        //        return;
+        //    }
+        //    var tool = evt.target.id.toLowerCase();
+        //    activate(tool);
+        //};
     });
 }
 // 绘制结束后，添加到GraphicsLayer显示，可能需要保存。
@@ -111,6 +114,7 @@ function deactiveDelBtn() {
     });
 }
 function saveToDB(graphic) {
+    var str = JSON.stringify(graphic.plot);
     var plot = graphic.plot.toJson();
     var symbol = graphic.symbol.toJson();
 }

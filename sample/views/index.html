@@ -10,18 +10,18 @@
         var dojoConfig = {
             packages: [{
                 name: "plot",
-                location: "/js/plot"
+                location: location.href + "/js/plot"
             }]
         };
     </script>
     <script src="https://js.arcgis.com/3.16/init.js"></script>
     <!--<script src="http://192.168.0.2/arcgis_js_api/library/3.16/init.js"></script>-->
-    <script src="js/plot/plot.js"></script>
+    <!--<script src="js/plot/plot.js"></script>-->
     <script src="js/app.js"></script>
 </head>
 <body>
     <div id="mapDiv"></div>
-    <div id="menu">
+    <!--<div id="menu">
         <div>
             点标
             <button type="button" id="marker">点</button>
@@ -56,7 +56,7 @@
             <button type="button" id="squadcombat">分队战斗行动</button>
             <button type="button" id="tailedsquadcombat">分队战斗行动（尾）</button>
         </div>
-    </div>
+    </div>-->
     <div id="delete-wrapper">
         <div id="btn-delete" style="display:none;">删 除</div>
     </div>

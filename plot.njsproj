@@ -55,6 +55,9 @@
     <Folder Include="sample\static\js\plot\" />
     <Folder Include="sample\views\" />
     <Folder Include="src\" />
+    <Folder Include="src\plot\dijit\" />
+    <Folder Include="src\plot\dijit\css\" />
+    <Folder Include="src\plot\dijit\templates\" />
     <Folder Include="src\plot\geometry\" />
     <Folder Include="src\plot\" />
   </ItemGroup>
@@ -85,7 +88,10 @@
     <Compile Include="lib\goog\string.js" />
     <Compile Include="lib\goog\useragent.js" />
     <Compile Include="lib\goog\util.js" />
+    <Compile Include="src\plot\dijit\PlotToolbar.js" />
     <Content Include="sample\static\js\plot\plot.js" />
+    <Content Include="src\plot\dijit\css\PlotToolbar.css" />
+    <Content Include="src\plot\dijit\templates\PlotToolbar.html" />
     <Content Include="src\plot\package.json" />
     <Content Include="src\plot\plot.profile.js" />
     <Content Include="sample\app.js" />
