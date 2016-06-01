@@ -88,7 +88,7 @@
     <Compile Include="lib\goog\string.js" />
     <Compile Include="lib\goog\useragent.js" />
     <Compile Include="lib\goog\util.js" />
-    <Compile Include="src\plot\dijit\PlotToolbar.js" />
+    <Content Include="src\plot\dijit\PlotToolbar.js" />
     <Content Include="sample\static\js\plot\plot.js" />
     <Content Include="src\plot\dijit\css\PlotToolbar.css" />
     <Content Include="src\plot\dijit\templates\PlotToolbar.html" />

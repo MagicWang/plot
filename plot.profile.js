@@ -10,15 +10,8 @@ var profile = (function () {
         mini: true,
         stripConsole: "warn",
         selectorEngine: "lite",
-        defaultConfig: {
-            hasCache: {
-                "dojo-built": 1,
-                "dojo-loader": 1,
-                "dom": 1,
-                "host-browser": 1,
-                "config-selectorEngine": "lite"
-            },
-            async: 1
+        plugins: {
+            "xstyle/css": "xstyle/build/amd-css"
         },
         packages: [{
                 name: "plot",
@@ -26,8 +19,13 @@ var profile = (function () {
             }],
         layers: {
             "plot/plot": {
-                include: ["plot/PlotDraw", "plot/PlotEdit"]
+                include: ["plot/PlotDraw", "plot/PlotEdit", "plot/dijit/PlotToolbar"],
+                targetStylesheet: "plot/plot.css"
             }
-        }
+        },
+        prefixes: [
+            ["dojo", "../dojo"],
+            ["xstyle", "../xstyle"]
+        ]
     };
 })();

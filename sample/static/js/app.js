@@ -57,6 +57,9 @@ function initEvents() {
         var toolbar = new PlotToolbar();
         toolbar.startup();
         toolbar.placeAt("mapDiv");
+        toolbar.on("click", function (evt) {
+            activate(evt);
+        })
         //dom.byId("menu").onclick = function (evt) {
         //    if (evt.target.id === "menu") {
         //        return;

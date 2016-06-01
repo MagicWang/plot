@@ -6,10 +6,11 @@ define([
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
     "dojo/on",
-    "dojo/Deferred",  
-    "dojo/text!plot/dijit/templates/PlotToolbar.html", // template html
+    "dojo/Deferred",
+    "dojo/text!./templates/PlotToolbar.html", // template html
     "dojo/dom-class",
-    "dojo/dom-style"
+    "dojo/dom-style",
+    'xstyle/css!./css/PlotToolbar.css'
 ],
 function (
     Evented,
@@ -23,16 +24,16 @@ function (
     domClass, domStyle
 ) {
     var Widget = declare([_WidgetBase, _TemplatedMixin, Evented], {
-        
+
         // template HTML
         templateString: dijitTemplate,
-        
+
         // default options
         options: {
             theme: "PlotToolbar",
             visible: true
         },
-        
+
         // lifecycle: 1
         constructor: function (options, srcRefNode) {
             // mix in settings and defaults
@@ -97,6 +98,13 @@ function (
             else {
                 domStyle.set(this.domNode, 'display', 'none');
             }
+        },
+        _onClick: function (evt) {
+            if (evt.target.id === this.theme) {
+                return;
+            }
+            var tool = evt.target.id.toLowerCase();
+            this.emit("click", tool);
         }
     });
     return Widget;

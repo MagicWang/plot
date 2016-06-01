@@ -144,3 +144,11 @@ button{
     cursor: pointer;
     background: rgba(255, 8, 53, 0.85);
 }
+.PlotToolbar {
+    position: absolute;
+    top: 80px;
+    left: 10px;
+    background: rgba(100, 100, 100, 0.85);
+    padding: 10px;
+    color: #cccccc;
+}
