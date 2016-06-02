@@ -57,9 +57,11 @@
     <Folder Include="src\" />
     <Folder Include="src\plot\dijit\" />
     <Folder Include="src\plot\dijit\css\" />
+    <Folder Include="src\plot\dijit\images\" />
     <Folder Include="src\plot\dijit\templates\" />
     <Folder Include="src\plot\geometry\" />
     <Folder Include="src\plot\" />
+    <Folder Include="src\plot\css\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="plot.profile.js" />
@@ -88,6 +90,25 @@
     <Compile Include="lib\goog\string.js" />
     <Compile Include="lib\goog\useragent.js" />
     <Compile Include="lib\goog\util.js" />
+    <Content Include="src\plot\css\plot.css" />
+    <Content Include="src\plot\dijit\images\arc.png" />
+    <Content Include="src\plot\dijit\images\assaultdirection.png" />
+    <Content Include="src\plot\dijit\images\attackarrow.png" />
+    <Content Include="src\plot\dijit\images\circle.png" />
+    <Content Include="src\plot\dijit\images\clear.png" />
+    <Content Include="src\plot\dijit\images\closedcurve.png" />
+    <Content Include="src\plot\dijit\images\color.png" />
+    <Content Include="src\plot\dijit\images\curve.png" />
+    <Content Include="src\plot\dijit\images\doublearrow.png" />
+    <Content Include="src\plot\dijit\images\ellipse.png" />
+    <Content Include="src\plot\dijit\images\finearrow.png" />
+    <Content Include="src\plot\dijit\images\gatheringplace.png" />
+    <Content Include="src\plot\dijit\images\lune.png" />
+    <Content Include="src\plot\dijit\images\sector.png" />
+    <Content Include="src\plot\dijit\images\squadcombat.png" />
+    <Content Include="src\plot\dijit\images\straightarrow.png" />
+    <Content Include="src\plot\dijit\images\tailedattackarrow.png" />
+    <Content Include="src\plot\dijit\images\tailedsquadcombat.png" />
     <Content Include="src\plot\dijit\PlotToolbar.js" />
     <Content Include="sample\static\js\plot\plot.js" />
     <Content Include="src\plot\dijit\css\PlotToolbar.css" />

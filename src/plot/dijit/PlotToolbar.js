@@ -9,8 +9,7 @@ define([
     "dojo/Deferred",
     "dojo/text!./templates/PlotToolbar.html", // template html
     "dojo/dom-class",
-    "dojo/dom-style",
-    'xstyle/css!./css/PlotToolbar.css'
+    "dojo/dom-style"
 ],
 function (
     Evented,
@@ -30,7 +29,7 @@ function (
 
         // default options
         options: {
-            theme: "PlotToolbar",
+            baseClass: "PlotToolbar",
             visible: true
         },
 
@@ -40,11 +39,10 @@ function (
             var defaults = lang.mixin({}, this.options, options);
             // widget node
             this.domNode = srcRefNode;
-            // properties
-            this.set("theme", defaults.theme);
+            this.set("baseClass", defaults.baseClass);
             this.set("visible", defaults.visible);
             // listeners
-            this.watch("theme", this._updateThemeWatch);
+            this.watch("baseClass", this._updateBaseClassWatch);
             this.watch("visible", this._visible);
         },
         // bind listener for button to action
@@ -85,8 +83,8 @@ function (
             this.set("loaded", true);
             this.emit("load", {});
         },
-        // theme changed
-        _updateThemeWatch: function (attr, oldVal, newVal) {
+        // baseClass changed
+        _updateBaseClassWatch: function (attr, oldVal, newVal) {
             domClass.remove(this.domNode, oldVal);
             domClass.add(this.domNode, newVal);
         },
@@ -100,7 +98,7 @@ function (
             }
         },
         _onClick: function (evt) {
-            if (evt.target.id === this.theme) {
+            if (evt.target.id === this.baseClass) {
                 return;
             }
             var tool = evt.target.id.toLowerCase();

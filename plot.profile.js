@@ -10,22 +10,14 @@ var profile = (function () {
         mini: true,
         stripConsole: "warn",
         selectorEngine: "lite",
-        plugins: {
-            "xstyle/css": "xstyle/build/amd-css"
-        },
         packages: [{
                 name: "plot",
                 location: "plot"
             }],
         layers: {
             "plot/plot": {
-                include: ["plot/PlotDraw", "plot/PlotEdit", "plot/dijit/PlotToolbar"],
-                targetStylesheet: "plot/plot.css"
+                include: ["plot/PlotDraw", "plot/PlotEdit", "plot/dijit/PlotToolbar"]
             }
-        },
-        prefixes: [
-            ["dojo", "../dojo"],
-            ["xstyle", "../xstyle"]
-        ]
+        }
     };
 })();
