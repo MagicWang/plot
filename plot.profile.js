@@ -1,7 +1,8 @@
 var profile = (function () {
     return {
         basePath: "./src",
-        releaseDir: "../build",
+        //releaseDir: "../build",
+        releaseDir: "../sample/static/js",
         releaseName: "",
         action: "release",
         layerOptimize: "closure",

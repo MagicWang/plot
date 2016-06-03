@@ -39,34 +39,34 @@ function initEvents() {
                 // 开始编辑
                 editGraphic = e.graphic;
                 plotEdit.activate(editGraphic);
-                activeDelBtn();
             } else {
                 // 结束编辑
                 editGraphic = null;
                 plotEdit.deactivate();
-                deactiveDelBtn();
             }
         });
-        dom.byId("btn-delete").onclick = function () {
-            if (plotEdit && editGraphic) {
-                map.graphics.remove(editGraphic);
-                plotEdit.deactivate();
-                deactiveDelBtn();
-            }
-        };
         var toolbar = new PlotToolbar();
         toolbar.startup();
         toolbar.placeAt("mapDiv");
         toolbar.on("click", function (evt) {
-            activate(evt);
-        })
-        //dom.byId("menu").onclick = function (evt) {
-        //    if (evt.target.id === "menu") {
-        //        return;
-        //    }
-        //    var tool = evt.target.id.toLowerCase();
-        //    activate(tool);
-        //};
+            if (evt === "clear") {
+                if (plotEdit && editGraphic) {
+                    map.graphics.remove(editGraphic);
+                    plotEdit.deactivate();
+                }
+            } else {
+                activate(evt);
+            }
+        });
+        toolbar.on("color-change", function (evt) {
+            markerSymbol.setColor(evt.color);
+            lineSymbol.setColor(evt.color);
+            fillSymbol.setColor(evt.color);
+            if (plotEdit && editGraphic) {
+                editGraphic.symbol.setColor(evt.color);
+                editGraphic.draw();
+            }
+        });
     });
 }
 // 绘制结束后，添加到GraphicsLayer显示，可能需要保存。
@@ -91,7 +91,6 @@ function onDrawEnd(evt) {
          // 开始编辑
          editGraphic = graphic;
          plotEdit.activate(editGraphic);
-         activeDelBtn();
          saveToDB(graphic);
      });
 };
@@ -105,17 +104,6 @@ function activate(type) {
     plotDraw.activate(type);
 };
 
-function activeDelBtn() {
-    require(["dojo/dom"], function (dom) {
-        dom.byId("btn-delete").style.display = 'inline-block';
-    });
-}
-
-function deactiveDelBtn() {
-    require(["dojo/dom"], function (dom) {
-        dom.byId("btn-delete").style.display = 'none';
-    });
-}
 function saveToDB(graphic) {
     var str = JSON.stringify(graphic.plot);
     var plot = graphic.plot.toJson();

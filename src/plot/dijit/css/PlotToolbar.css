@@ -2,17 +2,29 @@
     position: absolute;
     top: 100px;
     left: 10px;
-    width: 30px;
-    height: 470px;
     background-color: #2f3843;
     opacity: 0.8;
     filter: alpha(opacity=80);
 }
 
+    .PlotToolbar .title {
+        width: 30px;
+        height: 10px;
+        cursor: move;
+    }
+
     .PlotToolbar ul {
         list-style-type: none;
         margin: 0;
         padding: 0;
+    }
+
+    .PlotToolbar .colorPicker {
+        background-color: lightgray;
+        position: absolute;
+        left: 30px;
+        bottom: 0;
+        display: none;
     }
 
     .PlotToolbar li {
@@ -27,85 +39,80 @@
         vertical-align: bottom;
     }
 
-        .PlotToolbar li span {
-            width: 16px;
-            height: 16px;
-            display: inline-block;
-            vertical-align: middle;
-            margin: -3px 0px 0px 0px;
-            padding: 0;
-            margin: 5px 0px 0px 0px\9;
-            Cursor: pointer;
+        .PlotToolbar li:hover {
+            background-color: #2f3843;
+            opacity: 0.4;
+            filter: alpha(opacity=40);
         }
 
-    .PlotToolbar #arc span {
-        background: url(../images/arc.png) no-repeat;
+    .PlotToolbar .arc {
+        background: url(../images/arc.png) no-repeat center;
     }
 
-    .PlotToolbar #curve span {
-        background: url(../images/curve.png) no-repeat;
+    .PlotToolbar .curve {
+        background: url(../images/curve.png) no-repeat center;
     }
 
-    .PlotToolbar #circle span {
-        background: url(../images/circle.png) no-repeat;
+    .PlotToolbar .circle {
+        background: url(../images/circle.png) no-repeat center;
     }
 
-    .PlotToolbar #ellipse span {
-        background: url(../images/ellipse.png) no-repeat;
+    .PlotToolbar .ellipse {
+        background: url(../images/ellipse.png) no-repeat center;
     }
 
-    .PlotToolbar #lune span {
-        background: url(../images/lune.png) no-repeat;
+    .PlotToolbar .lune {
+        background: url(../images/lune.png) no-repeat center;
     }
 
-    .PlotToolbar #sector span {
-        background: url(../images/sector.png) no-repeat;
+    .PlotToolbar .sector {
+        background: url(../images/sector.png) no-repeat center;
     }
 
-    .PlotToolbar #closedcurve span {
-        background: url(../images/closedcurve.png) no-repeat;
+    .PlotToolbar .closedcurve {
+        background: url(../images/closedcurve.png) no-repeat center;
     }
 
-    .PlotToolbar #gatheringplace span {
-        background: url(../images/gatheringplace.png) no-repeat;
+    .PlotToolbar .gatheringplace {
+        background: url(../images/gatheringplace.png) no-repeat center;
     }
 
-    .PlotToolbar #doublearrow span {
-        background: url(../images/doublearrow.png) no-repeat;
+    .PlotToolbar .doublearrow {
+        background: url(../images/doublearrow.png) no-repeat center;
     }
 
-    .PlotToolbar #straightarrow span {
-        background: url(../images/straightarrow.png) no-repeat;
+    .PlotToolbar .straightarrow {
+        background: url(../images/straightarrow.png) no-repeat center;
     }
 
-    .PlotToolbar #finearrow span {
-        background: url(../images/finearrow.png) no-repeat;
+    .PlotToolbar .finearrow {
+        background: url(../images/finearrow.png) no-repeat center;
     }
 
-    .PlotToolbar #assaultdirection span {
-        background: url(../images/assaultdirection.png) no-repeat;
+    .PlotToolbar .assaultdirection {
+        background: url(../images/assaultdirection.png) no-repeat center;
     }
 
-    .PlotToolbar #attackarrow span {
-        background: url(../images/attackarrow.png) no-repeat;
+    .PlotToolbar .attackarrow {
+        background: url(../images/attackarrow.png) no-repeat center;
     }
 
-    .PlotToolbar #tailedattackarrow span {
-        background: url(../images/tailedattackarrow.png) no-repeat;
+    .PlotToolbar .tailedattackarrow {
+        background: url(../images/tailedattackarrow.png) no-repeat center;
     }
 
-    .PlotToolbar #squadcombat span {
-        background: url(../images/squadcombat.png) no-repeat;
+    .PlotToolbar .squadcombat {
+        background: url(../images/squadcombat.png) no-repeat center;
     }
 
-    .PlotToolbar #tailedsquadcombat span {
-        background: url(../images/tailedsquadcombat.png) no-repeat;
+    .PlotToolbar .tailedsquadcombat {
+        background: url(../images/tailedsquadcombat.png) no-repeat center;
     }
 
-    .PlotToolbar #color span {
-        background: url(../images/color.png) no-repeat;
+    .PlotToolbar .color {
+        background: url(../images/color.png) no-repeat center;
     }
 
-    .PlotToolbar #clear span {
-        background: url(../images/clear.png) no-repeat;
+    .PlotToolbar .clear {
+        background: url(../images/clear.png) no-repeat center;
     }
