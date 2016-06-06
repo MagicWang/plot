@@ -2,7 +2,7 @@ define([
     "dojo/Evented",
     "dojo/_base/declare",
     "dojo/_base/lang",
-    "dojo/dnd/Moveable",
+    "dojo/dnd/move",
     "dijit/_WidgetBase",
     "dijit/a11yclick", // Custom press, release, and click synthetic events which trigger on a left mouse click, touch, or space/enter keyup.
     "dijit/_TemplatedMixin",
@@ -17,7 +17,7 @@ function (
     Evented,
     declare,
     lang,
-    Moveable,
+    move,
     _WidgetBase, a11yclick, _TemplatedMixin, _WidgetsInTemplateMixin,
     on,
     dijitTemplate,
@@ -51,7 +51,7 @@ function (
         postCreate: function () {
             this.inherited(arguments);
             if (this.domNode) {
-                var dnd = new Moveable(this.domNode);
+                var dnd = new move.parentConstrainedMoveable(this.domNode, { within: true });
             }
             this.own(on(this.ulNode, a11yclick, lang.hitch(this, this._onClick)));
         },

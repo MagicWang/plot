@@ -4,7 +4,7 @@ define([
     "./PlotGeometry"
 ], function (declare, plotUtils, PlotGeometry) {
     return declare([PlotGeometry], {
-        constructor: function (points) {
+        constructor: function (points, wkid) {
             this.type = "point";
             this.plotType = "marker";
             this.fixPointCount = 1;

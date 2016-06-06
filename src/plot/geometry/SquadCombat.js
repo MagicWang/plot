@@ -5,7 +5,7 @@ define([
     "./AttackArrow"
 ], function (declare, constants, plotUtils, AttackArrow) {
     return declare([AttackArrow], {
-        constructor: function (points) {
+        constructor: function (points, wkid) {
             this.type = "polygon";
             this.plotType = "squadcombat";
             this.headHeightFactor = 0.18;

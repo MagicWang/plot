@@ -105,7 +105,7 @@ define([
                 this._activeControlPointGraphic.setGeometry(e.mapPoint);
                 var index = this._controlPointGraphics.indexOf(this._activeControlPointGraphic);
                 this._graphic.plot.updatePoint([e.mapPoint.x, e.mapPoint.y], index);
-                this._graphic.setGeometry(this._generateGeometry(this._graphic.plot));
+                this._graphic.setGeometry(this._plot.toGeometry());
             }
         },
         _controlPointLayerMouseDragEndHandler: function (e) {
@@ -149,7 +149,7 @@ define([
                 newPoints.push(coordinate);
             }
             this._graphic.plot.setPoints(newPoints);
-            this._graphic.setGeometry(this._generateGeometry(this._graphic.plot));
+            this._graphic.setGeometry(this._plot.toGeometry());
         },
         _layerMouseDragEndHandler: function (e) {
             this._map.enablePan();
@@ -163,20 +163,6 @@ define([
             }
             var plot = this._graphic.plot;
             return plot.getPoints();
-        },
-        _generateGeometry: function (plot) {
-            var geometry;
-            if (plot.type === "point") {
-                geometry = new Point(plot.x, plot.y);
-            }
-            else if (plot.type === "polyline") {
-                geometry = new Polyline(plot.paths);
-            }
-            else if (plot.type === "polygon") {
-                geometry = new Polygon(plot.rings);
-            }
-            geometry.spatialReference = this._map.spatialReference;
-            return geometry;
         }
     });
     return PlotEdit;

@@ -118,6 +118,8 @@
     <Compile Include="lib\goog\string.js" />
     <Compile Include="lib\goog\useragent.js" />
     <Compile Include="lib\goog\util.js" />
+    <Content Include="src\plot\plotEncoder.js" />
+    <Content Include="src\plot\plotDecoder.js" />
     <Content Include="sample\static\js\plot\constants.js" />
     <Compile Include="sample\static\js\plot\dijit\PlotToolbar.js" />
     <Compile Include="sample\static\js\plot\geometry\Arc.js" />

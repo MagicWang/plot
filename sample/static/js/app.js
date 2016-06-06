@@ -3,14 +3,12 @@ var map, plotDraw, plotEdit, editGraphic, markerSymbol, lineSymbol, fillSymbol;
 // 初始化地图，底图使用openstreetmap在线地图
 (function () {
     require(["esri/map",
-            "esri/layers/GraphicsLayer",
-            "esri/graphic",
             "esri/Color",
             "esri/symbols/SimpleMarkerSymbol",
             "esri/symbols/SimpleLineSymbol",
             "esri/symbols/SimpleFillSymbol",
             "dojo/domReady!"],
-             function (Map, GraphicsLayer, Graphic, Color, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol) {
+             function (Map, Color, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol) {
                  map = new Map("mapDiv", {
                      center: [-56.049, 38.485],
                      zoom: 3,
@@ -22,6 +20,7 @@ var map, plotDraw, plotEdit, editGraphic, markerSymbol, lineSymbol, fillSymbol;
                  fillSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, this.lineSymbol, new Color([255, 0, 0, 0.25]));
 
                  initEvents();
+                 readFromDB();
              });
 })();
 function initEvents() {
@@ -105,7 +104,9 @@ function activate(type) {
 };
 
 function saveToDB(graphic) {
-    var str = JSON.stringify(graphic.plot);
-    var plot = graphic.plot.toJson();
-    var symbol = graphic.symbol.toJson();
+    var plot = JSON.stringify(graphic.plot.toJson());
+    var symbol = JSON.stringify(graphic.symbol.toJson());
+}
+function readFromDB() {
+
 }

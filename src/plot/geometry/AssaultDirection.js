@@ -3,7 +3,7 @@ define([
     "./FineArrow"
 ], function (declare, FineArrow) {
     return declare([FineArrow], {
-        constructor: function (points) {
+        constructor: function (points, wkid) {
             this.type = "polygon";
             this.plotType = "assaultdirection";
             this.tailWidthFactor = 0.2;

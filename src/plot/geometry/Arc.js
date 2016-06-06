@@ -4,7 +4,7 @@ define([
     "./PlotGeometry"
 ], function (declare, plotUtils, PlotGeometry) {
     return declare([PlotGeometry], {
-        constructor: function (points) {
+        constructor: function (points, wkid) {
             this.type = "polyline";
             this.plotType = "arc";
             this.fixPointCount = 3;

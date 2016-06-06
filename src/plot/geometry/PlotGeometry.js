@@ -1,11 +1,13 @@
 define([
-    "dojo/_base/declare"
-], function (declare) {
+    "dojo/_base/declare",
+    "esri/geometry/Point",
+    "esri/geometry/Polyline",
+    "esri/geometry/Polygon",
+    "esri/SpatialReference"
+], function (declare, Point, Polyline, Polygon, SpatialReference) {
     return declare(null, {
-        constructor: function (points) {
-            this.type = null;//µã¡¢Ïß¡¢Ãæ
-            this.plotType = null;
-            this.setPoints(points);
+        constructor: function (points, wkid) {
+            this.wkid = wkid || 4326;
         },
         setPoints: function (value) {
             this.points = value ? value : [];
@@ -27,8 +29,22 @@ define([
         },
         generate: function () {
         },
+        toGeometry: function () {
+            var geometry;
+            if (this.plotType === "point") {
+                geometry = new Point(this.x, this.y);
+            }
+            else if (this.plotType === "polyline") {
+                geometry = new Polyline(this.paths);
+            }
+            else if (this.plotType === "polygon") {
+                geometry = new Polygon(this.rings);
+            }
+            geometry.spatialReference = new SpatialReference(this.wkid);
+            return geometry;
+        },
         toJson: function () {
-            return { "plotType": this.plotType, "points": this.points };
+            return { "plotType": this.plotType, "points": this.points, "wkid": this.wkid };
         }
     });
 });

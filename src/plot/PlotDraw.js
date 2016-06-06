@@ -9,9 +9,6 @@ define([
     "esri/symbols/SimpleMarkerSymbol",
     "esri/symbols/SimpleLineSymbol",
     "esri/symbols/SimpleFillSymbol",
-    "esri/geometry/Point",
-    "esri/geometry/Polyline",
-    "esri/geometry/Polygon",
     "./geometry/Arc",
     "./geometry/AssaultDirection",
     "./geometry/AttackArrow",
@@ -34,7 +31,7 @@ define([
     "./geometry/StraightArrow",
     "./geometry/TailedAttackArrow",
     "./geometry/TailedSquadCombat"
-], function (declare, lang, Evented, constants, plotUtils, Graphic, Color, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, Point, Polyline, Polygon, Arc, AssaultDirection, AttackArrow, Circle, ClosedCurve, Curve, DoubleArrow, Ellipse, FineArrow, FreehandLine, FreehandPolygon, GatheringPlace, Lune, Marker, PlotPolygon, PlotPolyline, Rectangle, Sector, SquadCombat, StraightArrow, TailedAttackArrow, TailedSquadCombat) {
+], function (declare, lang, Evented, constants, plotUtils, Graphic, Color, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, Arc, AssaultDirection, AttackArrow, Circle, ClosedCurve, Curve, DoubleArrow, Ellipse, FineArrow, FreehandLine, FreehandPolygon, GatheringPlace, Lune, Marker, PlotPolygon, PlotPolyline, Rectangle, Sector, SquadCombat, StraightArrow, TailedAttackArrow, TailedSquadCombat) {
     var PlotDraw = declare([Evented], {
         constructor: function (map) {
             this.markerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_SQUARE, 8, null, new Color("#000000"));
@@ -79,7 +76,7 @@ define([
         _firstClickHandler: function (e) {
             this._firstClick_Connect.remove();
             this._points.push([e.mapPoint.x, e.mapPoint.y]);
-            this._plot = this._createPlot(this._plotType, this._points, this._plotParams);
+            this._plot = PlotDraw.createPlot(this._plotType, this._points, this._map.spatialReference.wkid);
             this._graphic = new Graphic();
             this._graphic.setSymbol(this._generateSymbol(this._plot));
             this._map.graphics.add(this._graphic);
@@ -109,10 +106,10 @@ define([
             if (this._plot && this._plot.freehand) {
                 this._doubleClickHandler(e);
             }
-            this._graphic.setGeometry(this._generateGeometry(this._plot));
+            this._graphic.setGeometry(this._plot.toGeometry());
         },
         _doubleClickHandler: function (e) {
-            this.emit("draw-end", { geometry: this._generateGeometry(this._plot), plot: this._plot });
+            this.emit("draw-end", { geometry: this._plot.toGeometry(), plot: this._plot });
             this.deactivate();
         },
         _mouseMoveHandler: function (e) {
@@ -125,21 +122,7 @@ define([
                 this._points.push([e.mapPoint.x, e.mapPoint.y]);
                 this._plot.setPoints(this._points);
             }
-            this._graphic.setGeometry(this._generateGeometry(this._plot));
-        },
-        _generateGeometry: function (plot) {
-            var geometry;
-            if (plot.type === "point") {
-                geometry = new Point(plot.x, plot.y);
-            }
-            else if (plot.type === "polyline") {
-                geometry = new Polyline(plot.paths);
-            }
-            else if (plot.type === "polygon") {
-                geometry = new Polygon(plot.rings);
-            }
-            geometry.spatialReference = this._map.spatialReference;
-            return geometry;
+            this._graphic.setGeometry(this._plot.toGeometry());
         },
         _generateSymbol: function (plot) {
             var symbol;
@@ -153,56 +136,56 @@ define([
                 symbol = this.fillSymbol;
             }
             return symbol;
-        },
-        _createPlot: function (type, points) {
-            switch (type) {
-                case PlotDraw.ARC:
-                    return new Arc(points);
-                case PlotDraw.ELLIPSE:
-                    return new Ellipse(points);
-                case PlotDraw.CURVE:
-                    return new Curve(points);
-                case PlotDraw.CLOSED_CURVE:
-                    return new ClosedCurve(points);
-                case PlotDraw.LUNE:
-                    return new Lune(points);
-                case PlotDraw.SECTOR:
-                    return new Sector(points);
-                case PlotDraw.GATHERING_PLACE:
-                    return new GatheringPlace(points);
-                case PlotDraw.STRAIGHT_ARROW:
-                    return new StraightArrow(points);
-                case PlotDraw.ASSAULT_DIRECTION:
-                    return new AssaultDirection(points);
-                case PlotDraw.ATTACK_ARROW:
-                    return new AttackArrow(points);
-                case PlotDraw.FINE_ARROW:
-                    return new FineArrow(points);
-                case PlotDraw.CIRCLE:
-                    return new Circle(points);
-                case PlotDraw.DOUBLE_ARROW:
-                    return new DoubleArrow(points);
-                case PlotDraw.TAILED_ATTACK_ARROW:
-                    return new TailedAttackArrow(points);
-                case PlotDraw.SQUAD_COMBAT:
-                    return new SquadCombat(points);
-                case PlotDraw.TAILED_SQUAD_COMBAT:
-                    return new TailedSquadCombat(points);
-                case PlotDraw.FREEHAND_LINE:
-                    return new FreehandLine(points);
-                case PlotDraw.FREEHAND_POLYGON:
-                    return new FreehandPolygon(points);
-                case PlotDraw.POLYGON:
-                    return new PlotPolygon(points);
-                case PlotDraw.MARKER:
-                    return new Marker(points);
-                case PlotDraw.RECTANGLE:
-                    return new Rectangle(points);
-                case PlotDraw.POLYLINE:
-                    return new PlotPolyline(points);
-            }
         }
     });
+    PlotDraw.createPlot = function (type, points, wkid) {
+        switch (type) {
+            case PlotDraw.ARC:
+                return new Arc(points, wkid);
+            case PlotDraw.ELLIPSE:
+                return new Ellipse(points, wkid);
+            case PlotDraw.CURVE:
+                return new Curve(points, wkid);
+            case PlotDraw.CLOSED_CURVE:
+                return new ClosedCurve(points, wkid);
+            case PlotDraw.LUNE:
+                return new Lune(points, wkid);
+            case PlotDraw.SECTOR:
+                return new Sector(points, wkid);
+            case PlotDraw.GATHERING_PLACE:
+                return new GatheringPlace(points, wkid);
+            case PlotDraw.STRAIGHT_ARROW:
+                return new StraightArrow(points, wkid);
+            case PlotDraw.ASSAULT_DIRECTION:
+                return new AssaultDirection(points, wkid);
+            case PlotDraw.ATTACK_ARROW:
+                return new AttackArrow(points, wkid);
+            case PlotDraw.FINE_ARROW:
+                return new FineArrow(points, wkid);
+            case PlotDraw.CIRCLE:
+                return new Circle(points, wkid);
+            case PlotDraw.DOUBLE_ARROW:
+                return new DoubleArrow(points, wkid);
+            case PlotDraw.TAILED_ATTACK_ARROW:
+                return new TailedAttackArrow(points, wkid);
+            case PlotDraw.SQUAD_COMBAT:
+                return new SquadCombat(points, wkid);
+            case PlotDraw.TAILED_SQUAD_COMBAT:
+                return new TailedSquadCombat(points, wkid);
+            case PlotDraw.FREEHAND_LINE:
+                return new FreehandLine(points, wkid);
+            case PlotDraw.FREEHAND_POLYGON:
+                return new FreehandPolygon(points, wkid);
+            case PlotDraw.POLYGON:
+                return new PlotPolygon(points, wkid);
+            case PlotDraw.MARKER:
+                return new Marker(points, wkid);
+            case PlotDraw.RECTANGLE:
+                return new Rectangle(points, wkid);
+            case PlotDraw.POLYLINE:
+                return new PlotPolyline(points, wkid);
+        }
+    };
     var plotTypes = {
         ARC: "arc",
         ELLIPSE: "ellipse",
