@@ -150,7 +150,7 @@
     <Compile Include="sample\static\js\plot\plotDecoder.js" />
     <Compile Include="sample\static\js\plot\PlotDraw.js" />
     <Compile Include="sample\static\js\plot\PlotEdit.js" />
-    <Compile Include="sample\static\js\plot\PlotEncoder.js" />
+    <Compile Include="sample\static\js\plot\plotEncoder.js" />
     <Compile Include="sample\static\js\plot\plotUtils.js" />
     <Content Include="src\plot\css\plot.css" />
     <Content Include="src\plot\dijit\images\arc.png" />
