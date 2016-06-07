@@ -62,6 +62,7 @@
     <Content Include="sample\static\js\plot\dijit\images\tailedsquadcombat.png" />
     <Content Include="sample\static\js\plot\dijit\templates\PlotToolbar.html" />
     <Content Include="sample\static\js\plot\package.json" />
+    <Content Include="sample\static\test.json" />
     <Content Include="sample\views\index.html" />
   </ItemGroup>
   <ItemGroup>
@@ -146,8 +147,10 @@
     <Compile Include="sample\static\js\plot\geometry\TailedAttackArrow.js" />
     <Compile Include="sample\static\js\plot\geometry\TailedSquadCombat.js" />
     <Compile Include="sample\static\js\plot\plot.profile.js" />
+    <Compile Include="sample\static\js\plot\plotDecoder.js" />
     <Compile Include="sample\static\js\plot\PlotDraw.js" />
     <Compile Include="sample\static\js\plot\PlotEdit.js" />
+    <Compile Include="sample\static\js\plot\PlotEncoder.js" />
     <Compile Include="sample\static\js\plot\plotUtils.js" />
     <Content Include="src\plot\css\plot.css" />
     <Content Include="src\plot\dijit\images\arc.png" />

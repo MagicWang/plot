@@ -1,0 +1,4 @@
+//>>built
+define("plot/geometry/GatheringPlace",["dojo/_base/declare","../constants","../plotUtils","./PlotGeometry"],function(m,k,d,n){return m([n],{constructor:function(a,c){this.type="polygon";this.plotType="gatheringplace";this.t=0.4;this.fixPointCount=3;this.setPoints(a)},generate:function(){var a=this.getPoints();if(!(2>a.length)){if(2==this.getPointCount())var c=d.mid(a[0],a[1]),b=d.distance(a[0],c)/0.9,e=d.getThirdPoint(a[0],c,k.HALF_PI,b,!0),a=[a[0],e,a[1]];c=d.mid(a[0],a[2]);a.push(c,a[0],a[1]);c=
+[];for(b=0;b<a.length-2;b++)var f=a[b],g=a[b+1],e=d.getBisectorNormals(this.t,f,g,a[b+2]),c=c.concat(e);for(var b=c.length,c=[c[b-1]].concat(c.slice(0,b-1)),h=[],b=0;b<a.length-2;b++){f=a[b];g=a[b+1];h.push(f);for(var l=0;l<=k.FITTING_COUNT;l++)e=d.getCubicValue(l/k.FITTING_COUNT,f,c[2*b],c[2*b+1],g),h.push(e);h.push(g)}this.rings=h}}})});
+//# sourceMappingURL=GatheringPlace.js.map

@@ -1,0 +1,5 @@
+//>>built
+define("plot/geometry/TailedSquadCombat",["dojo/_base/declare","../constants","../plotUtils","./AttackArrow"],function(k,f,e,l){return k([l],{constructor:function(a,b){this.type="polygon";this.plotType="tailedsquadcombat";this.headHeightFactor=0.18;this.headWidthFactor=0.3;this.neckHeightFactor=0.85;this.neckWidthFactor=0.15;this.tailWidthFactor=0.1;this.swallowTailFactor=1;this.swallowTailPnt=null;this.setPoints(a)},generate:function(){var a=this.getPointCount();if(!(2>a)){var b=this.getPoints(),
+c=this.getTailPoints(b),g=this.getArrowHeadPoints(b,c[0],c[2]),d=g[0],f=g[4],h=this.getArrowBodyPoints(b,d,f,this.tailWidthFactor),a=h.length,b=[c[0]].concat(h.slice(0,a/2));b.push(d);d=[c[2]].concat(h.slice(a/2,a));d.push(f);b=e.getQBSplinePoints(b);d=e.getQBSplinePoints(d);this.rings=b.concat(g,d.reverse(),[c[1],b[0]])}},getTailPoints:function(a){var b=e.getBaseLength(a)*this.tailWidthFactor,c=e.getThirdPoint(a[1],a[0],f.HALF_PI,b,!1),g=e.getThirdPoint(a[1],a[0],f.HALF_PI,b,!0);a=e.getThirdPoint(a[1],
+a[0],0,b*this.swallowTailFactor,!0);return[c,a,g]}})});
+//# sourceMappingURL=TailedSquadCombat.js.map

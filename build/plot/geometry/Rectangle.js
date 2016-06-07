@@ -1,0 +1,3 @@
+//>>built
+define("plot/geometry/Rectangle",["dojo/_base/declare","../plotUtils","./PlotGeometry"],function(f,h,g){return f([g],{constructor:function(a,b){this.type="polygon";this.plotType="rectangle";this.fixPointCount=2;this.setPoints(a)},generate:function(){if(!(2>this.getPointCount())){var a=this.points[0],b=this.points[1],c=Math.min(a[0],b[0]),d=Math.max(a[0],b[0]),e=Math.min(a[1],b[1]),a=Math.max(a[1],b[1]),b=[c,a];this.rings=[b,[d,a],[d,e],[c,e],b]}}})});
+//# sourceMappingURL=Rectangle.js.map

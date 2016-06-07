@@ -19,8 +19,10 @@ var map, plotDraw, plotEdit, editGraphic, markerSymbol, lineSymbol, fillSymbol;
                  lineSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color("#FF0000"), 2);
                  fillSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, this.lineSymbol, new Color([255, 0, 0, 0.25]));
 
+                 map.on("load", function () {
+                     readFromDB();
+                 });
                  initEvents();
-                 readFromDB();
              });
 })();
 function initEvents() {
@@ -44,10 +46,13 @@ function initEvents() {
                 plotEdit.deactivate();
             }
         });
+
         var toolbar = new PlotToolbar();
         toolbar.startup();
         toolbar.placeAt("mapDiv");
         toolbar.on("click", function (evt) {
+            if (!evt)
+                return;
             if (evt === "clear") {
                 if (plotEdit && editGraphic) {
                     map.graphics.remove(editGraphic);
@@ -71,18 +76,19 @@ function initEvents() {
 // 绘制结束后，添加到GraphicsLayer显示，可能需要保存。
 function onDrawEnd(evt) {
     require(["esri/graphic",
+        "esri/symbols/jsonUtils",
         "esri/geometry/Point",
         "esri/geometry/Polyline",
-        "esri/geometry/Polygon",
+        "esri/geometry/Polygon"
     ],
-     function (Graphic, Point, Polyline, Polygon) {
+     function (Graphic, jsonUtils, Point, Polyline, Polygon) {
          var symbol;
          if (evt.geometry.isInstanceOf(Point)) {
-             symbol = markerSymbol;
+             symbol = jsonUtils.fromJson(markerSymbol.toJson());
          } else if (evt.geometry.isInstanceOf(Polyline)) {
-             symbol = lineSymbol;
+             symbol = jsonUtils.fromJson(lineSymbol.toJson());
          } else if (evt.geometry.isInstanceOf(Polygon)) {
-             symbol = fillSymbol;
+             symbol = jsonUtils.fromJson(fillSymbol.toJson());
          }
          var graphic = new Graphic(evt.geometry, symbol);
          graphic.plot = evt.plot;
@@ -104,9 +110,13 @@ function activate(type) {
 };
 
 function saveToDB(graphic) {
-    var plot = JSON.stringify(graphic.plot.toJson());
-    var symbol = JSON.stringify(graphic.symbol.toJson());
+    require(["plot/plotEncoder"], function (plotEncoder) {
+        var s = JSON.stringify(plotEncoder.toJson(graphic));
+    });
 }
 function readFromDB() {
-
+    require(["plot/plotDecoder", "dojo/text!http://localhost:9000/test.json"], function (plotDecoder, json) {
+        var graphic = plotDecoder.fromJson(JSON.parse(json));
+        map.graphics.add(graphic);
+    });
 }

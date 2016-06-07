@@ -1,0 +1,4 @@
+//>>built
+define("plot/geometry/StraightArrow",["dojo/_base/declare","../plotUtils","./PlotGeometry"],function(d,e,f){return d([f],{constructor:function(a,c){this.type="polygon";this.plotType="straightarrow";this.fixPointCount=2;this.maxArrowLength=3E6;this.arrowLengthScale=5;this.setPoints(a)},generate:function(){if(!(2>this.getPointCount())){var a=this.getPoints(),c=a[0],a=a[1],b=e.distance(c,a)/this.arrowLengthScale,b=b>this.maxArrowLength?this.maxArrowLength:b,d=e.getThirdPoint(c,a,Math.PI/6,b,!1),b=e.getThirdPoint(c,
+a,Math.PI/6,b,!0);this.rings=[c,a,d,a,b]}}})});
+//# sourceMappingURL=StraightArrow.js.map

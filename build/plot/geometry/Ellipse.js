@@ -1,0 +1,4 @@
+//>>built
+define("plot/geometry/Ellipse",["dojo/_base/declare","../constants","../plotUtils","./PlotGeometry"],function(k,g,l,m){return k([m],{constructor:function(a,b){this.type="polygon";this.plotType="ellipse";this.fixPointCount=2;this.setPoints(a)},generate:function(){if(!(2>this.getPointCount())){var a=this.points[0],b=this.points[1],e=l.mid(a,b),d=Math.abs((a[0]-b[0])/2),a=Math.abs((a[1]-b[1])/2);this.rings=this.generatePoints(e,d,a)}},generatePoints:function(a,b,e){for(var d,c,h=[],f=0;f<=g.FITTING_COUNT;f++)c=
+2*Math.PI*f/g.FITTING_COUNT,d=a[0]+b*Math.cos(c),c=a[1]+e*Math.sin(c),h.push([d,c]);return h}})});
+//# sourceMappingURL=Ellipse.js.map

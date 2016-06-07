@@ -31,13 +31,13 @@ define([
         },
         toGeometry: function () {
             var geometry;
-            if (this.plotType === "point") {
+            if (this.type === "point") {
                 geometry = new Point(this.x, this.y);
             }
-            else if (this.plotType === "polyline") {
+            else if (this.type === "polyline") {
                 geometry = new Polyline(this.paths);
             }
-            else if (this.plotType === "polygon") {
+            else if (this.type === "polygon") {
                 geometry = new Polygon(this.rings);
             }
             geometry.spatialReference = new SpatialReference(this.wkid);

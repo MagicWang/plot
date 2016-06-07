@@ -1,0 +1,4 @@
+//>>built
+define("plot/geometry/FineArrow",["dojo/_base/declare","../constants","../plotUtils","./PlotGeometry"],function(h,l,d,k){return h([k],{constructor:function(c,b){this.type="polygon";this.plotType="finearrow";this.tailWidthFactor=0.15;this.neckWidthFactor=0.2;this.headWidthFactor=0.25;this.headAngle=Math.PI/8.5;this.neckAngle=Math.PI/13;this.fixPointCount=2;this.setPoints(c)},generate:function(){if(!(2>this.getPointCount())){var c=this.getPoints(),b=c[0],a=c[1],e=d.getBaseLength(c),f=e*this.tailWidthFactor,
+c=e*this.neckWidthFactor,g=e*this.headWidthFactor,e=d.getThirdPoint(a,b,l.HALF_PI,f,!0),f=d.getThirdPoint(a,b,l.HALF_PI,f,!1),h=d.getThirdPoint(b,a,this.headAngle,g,!1),g=d.getThirdPoint(b,a,this.headAngle,g,!0),k=d.getThirdPoint(b,a,this.neckAngle,c,!1),b=d.getThirdPoint(b,a,this.neckAngle,c,!0),a=[e,k,h,a,g,b,f];this.rings=a.concat([a[0]])}}})});
+//# sourceMappingURL=FineArrow.js.map

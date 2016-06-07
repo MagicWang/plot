@@ -105,7 +105,7 @@ define([
                 this._activeControlPointGraphic.setGeometry(e.mapPoint);
                 var index = this._controlPointGraphics.indexOf(this._activeControlPointGraphic);
                 this._graphic.plot.updatePoint([e.mapPoint.x, e.mapPoint.y], index);
-                this._graphic.setGeometry(this._plot.toGeometry());
+                this._graphic.setGeometry(this._graphic.plot.toGeometry());
             }
         },
         _controlPointLayerMouseDragEndHandler: function (e) {
@@ -149,7 +149,7 @@ define([
                 newPoints.push(coordinate);
             }
             this._graphic.plot.setPoints(newPoints);
-            this._graphic.setGeometry(this._plot.toGeometry());
+            this._graphic.setGeometry(this._graphic.plot.toGeometry());
         },
         _layerMouseDragEndHandler: function (e) {
             this._map.enablePan();

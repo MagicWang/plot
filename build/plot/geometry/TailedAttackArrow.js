@@ -1,0 +1,5 @@
+//>>built
+define("plot/geometry/TailedAttackArrow",["dojo/_base/declare","../plotUtils","./AttackArrow"],function(l,e,m){return l([m],{constructor:function(a,b){this.type="polygon";this.plotType="tailedattackarrow";this.headHeightFactor=0.18;this.headWidthFactor=0.3;this.neckHeightFactor=0.85;this.neckWidthFactor=0.15;this.tailWidthFactor=0.1;this.headTailFactor=0.8;this.swallowTailFactor=1;this.swallowTailPnt=null;this.setPoints(a)},generate:function(){var a=this.getPointCount();if(!(2>a))if(2==this.getPointCount())this.rings=
+this.points;else{var b=this.getPoints(),c=b[0],d=b[1];e.isClockWise(b[0],b[1],b[2])&&(c=b[1],d=b[0]);var a=[e.mid(c,d)].concat(b.slice(2)),b=this.getArrowHeadPoints(a,c,d),g=b[0],h=b[4],f=e.distance(c,d),k=e.getBaseLength(a);this.swallowTailPnt=e.getThirdPoint(a[1],a[0],0,k*this.tailWidthFactor*this.swallowTailFactor,!0);f=this.getArrowBodyPoints(a,g,h,f/k);a=f.length;c=[c].concat(f.slice(0,a/2));c.push(g);d=[d].concat(f.slice(a/2,a));d.push(h);c=e.getQBSplinePoints(c);d=e.getQBSplinePoints(d);this.rings=
+c.concat(b,d.reverse(),[this.swallowTailPnt,c[0]])}}})});
+//# sourceMappingURL=TailedAttackArrow.js.map

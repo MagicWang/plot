@@ -1,0 +1,142 @@
+Build started: Tue Jun 07 2016 13:38:18 GMT+0800 (CST)
+Build application version: 1.11.1 (020b963)
+Messages:
+info(102) Optimizing module
+	module: plot/geometry/Polyline
+	module: plot/geometry/Arc
+	module: plot/geometry/Curve
+	module: plot/geometry/ClosedCurve
+	module: plot/geometry/FreehandPolygon
+	module: plot/geometry/Circle
+	module: plot/geometry/Sector
+	module: plot/geometry/StraightArrow
+	module: plot/plotEncoder
+	module: plot/geometry/TailedAttackArrow
+	module: plot/geometry/GatheringPlace
+	module: plot/geometry/Lune
+	module: plot/geometry/DoubleArrow
+	module: plot/constants
+	module: plot/geometry/FineArrow
+	module: plot/plotUtils
+	module: plot/dijit/PlotToolbar
+	module: plot/PlotEdit
+	module: plot/geometry/Marker
+	module: plot/geometry/Ellipse
+	module: plot/geometry/AttackArrow
+	module: plot/geometry/PlotGeometry
+	module: plot/geometry/Polygon
+	module: plot/geometry/SquadCombat
+	module: plot/geometry/FreehandLine
+	module: plot/geometry/Rectangle
+	module: plot/geometry/AssaultDirection
+	module: plot/PlotDraw
+	module: plot/plotDecoder
+	module: plot/geometry/TailedSquadCombat
+	module: plot/plot
+info(106) Optimizing CSS.
+	file: F:/GithubProjects/plot/src/plot/css/plot.css
+	file: F:/GithubProjects/plot/src/plot/dijit/css/PlotToolbar.css
+info(107) Package Version:
+	package: plot; version: 1.0.0
+error(311) Missing dependency.
+	module: plot/geometry/Polyline; dependency: dojo/_base/declare
+	module: plot/geometry/Arc; dependency: dojo/_base/declare
+	module: plot/geometry/Curve; dependency: dojo/_base/declare
+	module: plot/geometry/ClosedCurve; dependency: dojo/_base/declare
+	module: plot/geometry/FreehandPolygon; dependency: dojo/_base/declare
+	module: plot/geometry/Circle; dependency: dojo/_base/declare
+	module: plot/geometry/Sector; dependency: dojo/_base/declare
+	module: plot/geometry/StraightArrow; dependency: dojo/_base/declare
+	module: plot/geometry/TailedAttackArrow; dependency: dojo/_base/declare
+	module: plot/geometry/GatheringPlace; dependency: dojo/_base/declare
+	module: plot/geometry/Lune; dependency: dojo/_base/declare
+	module: plot/geometry/DoubleArrow; dependency: dojo/_base/declare
+	module: plot/geometry/FineArrow; dependency: dojo/_base/declare
+	module: plot/dijit/PlotToolbar; dependency: dojo/Evented
+	module: plot/dijit/PlotToolbar; dependency: dojo/_base/declare
+	module: plot/dijit/PlotToolbar; dependency: dojo/_base/lang
+	module: plot/dijit/PlotToolbar; dependency: dojo/dnd/move
+	module: plot/dijit/PlotToolbar; dependency: dijit/_WidgetBase
+	module: plot/dijit/PlotToolbar; dependency: dijit/a11yclick
+	module: plot/dijit/PlotToolbar; dependency: dijit/_TemplatedMixin
+	module: plot/dijit/PlotToolbar; dependency: dijit/_WidgetsInTemplateMixin
+	module: plot/dijit/PlotToolbar; dependency: dojo/on
+	module: plot/dijit/PlotToolbar; dependency: dojo/text!./templates/PlotToolbar.html
+	module: plot/dijit/PlotToolbar; dependency: dojo/dom-class
+	module: plot/dijit/PlotToolbar; dependency: dojo/dom-style
+	module: plot/dijit/PlotToolbar; dependency: esri/dijit/ColorPicker
+	module: plot/PlotEdit; dependency: dojo/_base/declare
+	module: plot/PlotEdit; dependency: dojo/_base/lang
+	module: plot/PlotEdit; dependency: dojo/dom
+	module: plot/PlotEdit; dependency: dojo/Evented
+	module: plot/PlotEdit; dependency: esri/geometry/Point
+	module: plot/PlotEdit; dependency: esri/geometry/Polyline
+	module: plot/PlotEdit; dependency: esri/geometry/Polygon
+	module: plot/PlotEdit; dependency: esri/graphic
+	module: plot/PlotEdit; dependency: esri/Color
+	module: plot/PlotEdit; dependency: esri/symbols/SimpleMarkerSymbol
+	module: plot/PlotEdit; dependency: esri/symbols/SimpleLineSymbol
+	module: plot/geometry/Marker; dependency: dojo/_base/declare
+	module: plot/geometry/Ellipse; dependency: dojo/_base/declare
+	module: plot/geometry/AttackArrow; dependency: dojo/_base/declare
+	module: plot/geometry/PlotGeometry; dependency: dojo/_base/declare
+	module: plot/geometry/PlotGeometry; dependency: esri/geometry/Point
+	module: plot/geometry/PlotGeometry; dependency: esri/geometry/Polyline
+	module: plot/geometry/PlotGeometry; dependency: esri/geometry/Polygon
+	module: plot/geometry/PlotGeometry; dependency: esri/SpatialReference
+	module: plot/geometry/Polygon; dependency: dojo/_base/declare
+	module: plot/geometry/SquadCombat; dependency: dojo/_base/declare
+	module: plot/geometry/FreehandLine; dependency: dojo/_base/declare
+	module: plot/geometry/Rectangle; dependency: dojo/_base/declare
+	module: plot/geometry/AssaultDirection; dependency: dojo/_base/declare
+	module: plot/PlotDraw; dependency: dojo/_base/declare
+	module: plot/PlotDraw; dependency: dojo/_base/lang
+	module: plot/PlotDraw; dependency: dojo/Evented
+	module: plot/PlotDraw; dependency: esri/graphic
+	module: plot/PlotDraw; dependency: esri/Color
+	module: plot/PlotDraw; dependency: esri/symbols/SimpleMarkerSymbol
+	module: plot/PlotDraw; dependency: esri/symbols/SimpleLineSymbol
+	module: plot/PlotDraw; dependency: esri/symbols/SimpleFillSymbol
+	module: plot/plotDecoder; dependency: esri/graphic
+	module: plot/plotDecoder; dependency: esri/symbols/jsonUtils
+	module: plot/geometry/TailedSquadCombat; dependency: dojo/_base/declare
+Layer Contents:
+plot/plot:
+	plot/geometry/Polyline
+	plot/geometry/Arc
+	plot/geometry/Curve
+	plot/geometry/ClosedCurve
+	plot/geometry/FreehandPolygon
+	plot/geometry/Circle
+	plot/geometry/Sector
+	plot/geometry/StraightArrow
+	plot/plotEncoder
+	plot/geometry/TailedAttackArrow
+	plot/geometry/GatheringPlace
+	plot/geometry/Lune
+	plot/geometry/DoubleArrow
+	plot/constants
+	plot/geometry/FineArrow
+	plot/plotUtils
+	plot/dijit/PlotToolbar
+	plot/geometry/Marker
+	plot/PlotEdit
+	plot/geometry/Ellipse
+	plot/geometry/PlotGeometry
+	plot/geometry/AttackArrow
+	plot/geometry/Polygon
+	plot/geometry/SquadCombat
+	plot/geometry/FreehandLine
+	plot/geometry/Rectangle
+	plot/plot
+	plot/geometry/AssaultDirection
+	plot/PlotDraw
+	plot/plotDecoder
+	plot/geometry/TailedSquadCombat
+
+
+
+Process finished normally
+	errors: 61
+	warnings: 0
+	build time: 2.574 seconds

@@ -1,0 +1,4 @@
+//>>built
+define("plot/geometry/ClosedCurve",["dojo/_base/declare","../constants","../plotUtils","./PlotGeometry"],function(e,g,h,m){return e([m],{constructor:function(a,b){this.type="polygon";this.plotType="closedcurve";this.t=0.3;this.setPoints(a)},generate:function(){var a=this.getPointCount();if(!(2>a))if(2==a)this.rings=this.points;else{var b=this.getPoints();b.push(b[0],b[1]);for(var c=[],a=0;a<b.length-2;a++)var d=h.getBisectorNormals(this.t,b[a],b[a+1],b[a+2]),c=c.concat(d);a=c.length;c=[c[a-1]].concat(c.slice(0,
+a-1));d=[];for(a=0;a<b.length-2;a++){var k=b[a],l=b[a+1];d.push(k);for(var f=0;f<=g.FITTING_COUNT;f++){var e=h.getCubicValue(f/g.FITTING_COUNT,k,c[2*a],c[2*a+1],l);d.push(e)}d.push(l)}this.rings=d}}})});
+//# sourceMappingURL=ClosedCurve.js.map
