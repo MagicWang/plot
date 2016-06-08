@@ -12,6 +12,9 @@ var map, plotDraw, plotEdit, editGraphic, markerSymbol, lineSymbol, fillSymbol;
                  map = new Map("mapDiv", {
                      center: [-56.049, 38.485],
                      zoom: 3,
+                     logo: false,
+                     slider: true,
+                     sliderPosition: "bottom-left",
                      basemap: "streets"
                  });
 
@@ -67,6 +70,8 @@ function initEvents() {
             lineSymbol.setColor(evt.color);
             fillSymbol.setColor(evt.color);
             if (plotEdit && editGraphic) {
+                if (editGraphic.symbol.outline)
+                    editGraphic.symbol.outline.setColor(evt.color);
                 editGraphic.symbol.setColor(evt.color);
                 editGraphic.draw();
             }

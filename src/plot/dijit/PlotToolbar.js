@@ -117,8 +117,9 @@ function (
                     } else {
                         domStyle.set(this.colorPicker.domNode, 'display', 'none');
                     }
+                } else {
+                    this.emit("click", id);
                 }
-                this.emit("click", id);
             }
         }
     });

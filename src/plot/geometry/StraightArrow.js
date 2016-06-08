@@ -5,7 +5,7 @@ define([
 ], function (declare, plotUtils, PlotGeometry) {
     return declare([PlotGeometry], {
         constructor: function (points, wkid) {
-            this.type = "polygon";
+            this.type = "polyline";
             this.plotType = "straightarrow";
             this.fixPointCount = 2;
             this.maxArrowLength = 3000000;
@@ -24,7 +24,7 @@ define([
             len = len > this.maxArrowLength ? this.maxArrowLength : len;
             var leftPnt = plotUtils.getThirdPoint(pnt1, pnt2, Math.PI / 6, len, false);
             var rightPnt = plotUtils.getThirdPoint(pnt1, pnt2, Math.PI / 6, len, true);
-            this.rings = [pnt1, pnt2, leftPnt, pnt2, rightPnt];
+            this.paths = [pnt1, pnt2, leftPnt, pnt2, rightPnt];
         }
     });
 });
